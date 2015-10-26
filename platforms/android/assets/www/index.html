@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        
+        <!--meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /-->
+
+        
+        <meta name="viewport" id="viewport" content="width=800">
+        <script type="text/javascript">
+            var viewPortWidth = 800;
+            function setViewport() {
+                var wW0 = window.screen.width;
+                var scale = wW0/viewPortWidth;
+                var vPort = "width="+viewPortWidth+", maximum-scale="+scale+", minimum-scale="+scale+", initial-scale="+scale+", user-scalable=yes, target-densitydpi=device-dpi";
+                document.getElementById("viewport").setAttribute("content", vPort);
+            }
+            setViewport();
+        </script>        
+        
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link rel="stylesheet" type="text/css" href="css/map.css" />
+        <link rel="stylesheet" type="text/css" href="css/dialog.css" />
+        
+        <title>MoniCare Inc. Domestic Jobs</title>
+        
+        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/libs/jquery/jquery.js"></script>
+        <script type="text/javascript" src="js/libs/jqueryui/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/libs/jquery-ui-map/jquery.ui.map.min.js"></script>
+        
+        <script type="text/javascript" src="js/jsrender.min.js"></script>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+        
+    </head>
+    <body>
+
+        <div id="page_header" data-role="header" data-position="fixed">
+
+            <nav id="top_navigation">
+                <a id="home" class="m_btn"><i class="icon-reorder"></i> MENU</a>
+                <ul>
+                    <li><a href="#all" class="nav_link"><i class="icon-book icon-2x"></i><span>All Jobs</span></a></li>
+                    <li><a href="#map" class="nav_link"><i class="icon-map-marker icon-2x"></i><span>Jobs on Map</span></a></li>
+                    <li><a href="#interested" class="nav_link"><i class="icon-ok-sign icon-2x"></i><span>I'm Interested</span></a></li>
+                    <li><a href="#contacts" class="nav_link"><i class="icon-phone icon-2x"></i><span>Contact us</span></a></li>
+                    <li><a href="#settings" class="nav_link"><i class="icon-wrench icon-2x"></i><span>Settings</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="logo">
+                <img src="img/logo_small_118x100.png" alt="">
+            </div>
+
+            <nav id="login_navigation">
+                <a class="m_btn nav_link" id="login-btn" href="#login" data-dir="right"><i class="icon-user"></i> LOGIN</a>
+                
+                <a class="m_btn logged nav_link" id="logged_user-btn" href="#user" data-dir="right"><i class="icon-user"></i> <span>ME</span></a>
+            </nav>
+                
+        </div>
+        
+        <div id="loading">
+            <img src="img/loading.gif" alt="">
+            <br />
+            Loading... Please wait.
+        </div>
+        
+        <div class="app" data-role="page" id="login">
+            
+            <div data-role="content">
+                
+                <div class="login_app">
+                    
+                    <h1 class="title">Login</h1>
+                    
+                    <div class="login-form">
+                    
+                        <p class="error-msg">Password is incorrect. </p>
+
+                        <div class="form">
+                            <form method="post" id="login-form">
+                                <div class="f"><input type="email" name="username" class="radius3" placeholder="E-mail"></div>
+                                <div class="f"><input type="password" name="password" class="radius3" placeholder="Password"></div>
+
+                                <div style="position: relative; margin: 5px 0px 2px 0px; padding-top: 3px; overflow: auto;">
+                                    <div style="float: left; width: 80px; height: 24px;"></div>
+                                    <div class="submit">
+                                        <input type="submit" class="big_btn" value="Submit »">
+                                        <p class="forgot"><a href="#forget" class="nav_link" data-dir="right">Forgot your password?</a></p>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="login_bot_register">
+                            <p>New Job Seekers: <a data-link="https://www.monicare.com/app/jobseeker/qualification" target="_blank" data-rel="external" class="red_link">Register&gt;&gt;</a></p>
+                        </div>
+
+                        <div class="comodo"><img src="img/PositiveSSL_tl_trans.gif" alt=""></div>                
+                    
+                    </div>
+                
+                </div>
+        
+            </div>
+        
+        </div>
+        
+        
+        <div class="app" data-role="page" id="forget">
+            
+            <div data-role="content">
+                
+                <div class="login_app">
+                    
+                    <h1 class="title">Forgot your Password?</h1>
+                    
+                    <p>Enter the email address used to create your application.<br />We will send a link to reset your password. Check your email. </p>
+                    
+                    <p class="error-msg"></p>
+                    
+                    <p class="forget-success"></p>
+                    
+                    <div class="form">
+                        <form method="post" id="forget-form">
+                            <div class="f"><input type="email" name="email" placeholder="E-mail"></div>
+
+                            <div style="position: relative; margin: 5px 0px 2px 0px; padding-top: 3px; overflow: auto;">
+                                <div style="float: left; width: 80px; height: 24px;"></div>
+                                <div class="submit">
+                                    <input type="submit" class="big_btn" value="Submit »" onclick="javascript: app.forget_form_submit();">
+                                    <p class="forgot"><a href="#login" class="nav_link" data-dir="right">Login</a></p>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                
+                    <div class="login_bot_register">
+                        <p>New Job Seekers: <a data-link="https://www.monicare.com/app/jobseeker/qualification" target="_blank" data-rel="external" class="red_link">Register&gt;&gt;</a></p>
+                    </div>
+            
+                    <div class="comodo"><img src="img/PositiveSSL_tl_trans.gif" alt=""></div>                
+                
+                </div>
+        
+            </div>
+        
+        </div>        
+        
+        <div class="app" data-role="page" id="one_job">
+        
+            <div data-role="content"> 
+            
+                <h1 class="title"></h1>
+
+                <div id="one_job_content"></div>
+
+            </div>
+
+        </div>
+
+        
+        <div class="app" data-role="page" id="all">
+            
+            <div data-role="content"> 
+            
+                <h1 class="title">Domestic Jobs</h1>
+
+                <div id="domestic-jobs-content"></div>
+
+            </div>
+
+        </div>
+        
+
+        
+        <div class="app" data-role="page" id="map">
+            
+            <div data-role="content"> 
+            
+                <div id="domestic-jobs-map">
+                    
+                    <div id="map-canvas"></div>
+                    
+                </div>
+
+            </div>  
+            
+        </div>
+
+        
+        <div class="app" data-role="page" id="settings">
+            
+            <div data-role="content"> 
+            
+
+            </div>  
+            
+        </div>
+
+        <div class="app" data-role="page" id="contacts">
+            
+            <div data-role="content">
+                
+                <h1 class="title">Contact us</h1>
+                <br />
+                
+                <div id="contacts-content"></div>
+                
+            </div>  
+            
+        </div>
+        
+        <div class="app" data-role="page" id="interested">
+            
+            <div data-role="content">
+                
+                <h1 class="title">I'm interested</h1>
+                <br />
+                
+                <div id="interested-content"></div>
+                
+            </div>  
+            
+        </div>
+
+        
+        <div class="app" data-role="page" id="user">
+            
+            <div data-role="content"> 
+                
+                <h1 class="title">My Profile</h1>
+                
+                <br /><br />
+                
+                <div class="login-success">
+
+                    <p class="notice-msg">Login successfully.</p>
+
+                </div>
+                
+
+                <div class="table">
+                    <div class="info-row" data-rel="name">
+                        <span class='cell t'>Name</span>
+                        <span class='cell v'></span>
+                    </div>
+                    <div class="info-row" data-rel="email">
+                        <span class='cell t'>E-mail</span>
+                        <span class='cell v'></span>
+                    </div>
+                    <div class="info-row" data-rel="phone">
+                        <span class='cell t'>Phone</span>
+                        <span class='cell v'></span>
+                    </div>
+                    <div class="info-row" data-rel="city">
+                        <span class='cell t'>City, State</span>
+                        <span class='cell v'></span>
+                    </div>
+                </div>
+                
+                <br /><br />
+                
+                <a href='https://www.monicare.com/app/jobseeker/dashboard' class="red_link">My Applications</a>
+                
+                <br /><br />
+                
+                <a id="logout-btn" class="big_btn">Logout</a>
+
+            </div>  
+            
+        </div>
+        
+        
+        
+        
+        <div class="dialog" data-dialog="true" data-role="page" id="dialogPage">
+          <div data-role="header" class="ui-header">
+            <h2 class="ui-title"></h2>
+            <a id="close-dialog"><i class="icon-remove icon-2x"></i></a>
+          </div>
+          <div data-role="main" class="ui-content">
+          </div>
+        </div>        
+        
+        
+        <div class="overlay"></div>
+        
+        <script id="domestic-job-tpl" type="text/x-jsrender">
+            <div class="domestic-job-item {{if review}}interested-job{{/if}}" id="job_id_{{:id}}">
+                <h4>
+                    <i class="icon-chevron-down slide"></i> 
+                    <span>{{:heading}}</span>
+                    <i class="icon-ok-sign icon-2x checked"></i>
+                </h4>
+                <div class="job-content">
+                    <div class="text">{{:text}}</div>
+                    <div class="btns">
+
+                        <div class="bbtn interested-btn" id="interest_{{:id}}">
+                                <b>I've finished <br />my Application</b><br/>
+                                <button type="button" class="interest1" name="interested" value="" onclick="javascript: app.openInterest({{:id}});" >I'm interested <br />in this Job »</button>
+                        </div>
+				
+                        <div class="bbtn review-btn" id="review_{{:id}}" >
+                                <b>I've finished my Application</b><br/>
+                                <button type="button" class="reviewing" name="interested" value="" onclick="javascript: return false;" >Reviewing Your Application</button>
+                        </div>
+                
+
+                        <div class="bbtn">
+                            <b>I'm new to<br/>MoniCare</b><br/>
+                            <button type="button" class="interest2" name="interested" value="" onclick="javascript: app.openFillOut({{:id}});" >Fill out Job Seeker <br />Application »</button>
+                        </div>
+
+                        <div class="clear"></div>
+                        <br />
+
+                        <div class="bbtn">
+                                <b>Receive $50 <br />Cash Reward </b><br/>
+                                <button type="button" class="interest1" name="interested" value="" onclick="javascript: app.recommend_dialog({{:id}}, 0);" >Recommend <br />a Friend »</button>
+                        </div>
+
+                        <div class="bbtn">
+                                <b>Forward this job <br />to a Friend</b><br/>
+                                <button type="button" class="interest2" name="interested" value="" onclick="javascript: app.recommend_dialog({{:id}}, 1);" >Forward <br /> this Job »</button>
+                        </div>
+
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+            </div>
+        </script>
+        
+        <script id="domestic-map-job-tpl" type="text/x-jsrender">
+        <div class="domestic-job-item {{if review}}interested-job{{/if}}" id="job_id_{{:id}}">
+                <div class="job-content-map">
+                    <div class="text">{{:text}}</div>
+                    <div class="btns">
+        
+                    <div class="bbtn interested-btn" id="interest_{{:id}}">
+                                <b>I've finished <br />my Application</b><br/>
+                            <button type="button" class="interest1" name="interested" value="" onclick="javascript: app.openInterest({{:id}});" >I'm interested <br />in this Job »</button>
+                        </div>
+
+                    <div class="bbtn review-btn" id="review_{{:id}}" >
+                            <b>I've finished my Application</b><br/>
+                            <button type="button" class="reviewing" name="interested" value="" onclick="javascript: return false;" >Reviewing Your Application</button>
+                    </div>
+
+
+                        <div class="bbtn">
+                            <b>I'm new to<br/>MoniCare</b><br/>
+                        <button type="button" class="interest2" name="interested" value="" onclick="javascript: app.openFillOut({{:id}});" >Fill out Job Seeker <br />Application »</button>
+                        </div>
+
+                        <div class="clear"></div>
+                        <br />
+
+                        <div class="bbtn">
+                            <b>Receive $50 <br />Cash Reward </b><br/>
+                            <button type="button" class="interest1" name="interested" value="" onclick="javascript: app.recommend_dialog({{:id}}, 0);" >Recommend <br />a Friend »</button>
+                        </div>
+
+                        <div class="bbtn">
+                                <b>Forward this job <br />to a Friend</b><br/>
+                            <button type="button" class="interest2" name="interested" value="" onclick="javascript: app.recommend_dialog({{:id}}, 1);" >Forward <br /> this Job »</button>
+                        </div>
+
+                        <div class="clear"></div>
+
+                    </div>
+            </div>
+        </script>
+
+        
+    </body>
+</html>
