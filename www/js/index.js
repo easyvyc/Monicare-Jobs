@@ -1,3 +1,4 @@
+alert(1);
 var app = {
     
     main_url: "https://www.monicare.com/",
@@ -16,6 +17,7 @@ var app = {
     
     // Application Constructor
     initialize: function() {
+        alert(2);
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -23,6 +25,7 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+        alert(3);
         document.addEventListener('deviceready', this.onDeviceReady, false);
 //        document.addEventListener('offline', this.onDeviceOffline, false);
 //        document.addEventListener('online', this.onDeviceOnline, false);
@@ -38,6 +41,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
+        alert(4);
         //Pushbots.sharedInstance().debug(true);
         
         window.addEventListener("orientationchange", updateOrientation, true);
