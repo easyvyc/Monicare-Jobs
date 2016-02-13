@@ -47,6 +47,7 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
+        alert("hi watsap");
         alert(typeof(PushbotsPlugin));
         if(typeof(PushbotsPlugin) != 'undefined'){
             if (PushbotsPlugin.isAndroid()) {
