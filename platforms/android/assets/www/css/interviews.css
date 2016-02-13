@@ -1,0 +1,40 @@
+.self-schedule-time-select-dialog {
+    position:relative;
+}
+.timeselector {
+    text-align:center;
+    float:left;
+    width:23%;
+    margin:1%;
+}
+.timeselector .m_btn {
+    font-size:12px;
+    padding:4px 6px;
+    border:none;
+}
+.timeselector .m_btn.disabled {
+    background:none;
+    color:#AAA;
+    box-shadow: 0 2px 3px #ddd;
+}
+
+.selected-self-schedule-time {
+    padding:10px;
+    text-align:center;
+    font-weight:bold;
+}
+#self-schedule .title {
+    padding:0 10px;
+}
+#self-schedule .manage-assistant {
+    overflow:hidden;
+    padding:10px;
+    text-align:left;
+    font-size:12px;
+}
+#self-schedule .manage-assistant figure {
+    padding:0px;
+    margin:0px;
+    float:left;
+    width:120px;
+}

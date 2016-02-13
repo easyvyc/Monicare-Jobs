@@ -33,6 +33,8 @@ Although the object is attached to the global scoped `navigator`, it is not avai
         console.log(navigator.accelerometer);
     }
 
+:warning: Report issues on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20Device%20Motion%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
+
 ## Installation
 
     cordova plugin add cordova-plugin-device-motion
@@ -76,17 +78,22 @@ callback function.
               'Acceleration Y: ' + acceleration.y + '\n' +
               'Acceleration Z: ' + acceleration.z + '\n' +
               'Timestamp: '      + acceleration.timestamp + '\n');
-    };
+    }
 
     function onError() {
         alert('onError!');
-    };
+    }
 
     navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
 
 ### Browser Quirks
 
 Values for X, Y, Z motion are all randomly generated in order to simulate the accelerometer.
+
+### Android Quirks
+
+The accelerometer is called with the __SENSOR_DELAY_UI__ flag, which limits the maximum readout frequency to something between 20 and 60 Hz, depending on the device. Values for __period__ corresponding to higher frequencies will result in duplicate samples.
+
 
 ### iOS Quirks
 
@@ -121,11 +128,11 @@ accelerometer.
               'Acceleration Y: ' + acceleration.y + '\n' +
               'Acceleration Z: ' + acceleration.z + '\n' +
               'Timestamp: '      + acceleration.timestamp + '\n');
-    };
+    }
 
     function onError() {
         alert('onError!');
-    };
+    }
 
     var options = { frequency: 3000 };  // Update every 3 seconds
 
@@ -168,4 +175,3 @@ device lies flat and facing up, _x_, _y_, and _z_ values returned should be
 - __y__:  Amount of acceleration on the y-axis. (in m/s^2) _(Number)_
 - __z__:  Amount of acceleration on the z-axis. (in m/s^2) _(Number)_
 - __timestamp__: Creation timestamp in milliseconds. _(DOMTimeStamp)_
-

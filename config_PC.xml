@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.8">
+    <name>Monicare Inc. Domestic Jobs</name>
+    <description>
+        Find the domestic job of your dreams in Chicago area.
+    </description>
+    <author email="info@monicare.com" href="http://www.monicare.com">
+        Monicare Inc.
+    </author>
+    <content src="index.html"/>
+    <access origin="*"/>
+    <access launch-external="yes" origin="mailto:*"/>
+    <access launch-external="yes" origin="tel:*"/>
+    <access launch-external="yes" origin="sms:*"/>
+    <access launch-external="yes" origin="geo:*"/>
+    <access launch-external="yes" origin="market:*"/>    
+</widget>

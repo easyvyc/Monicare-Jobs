@@ -1,0 +1,33 @@
+#experience .form-section {
+    margin:10px auto;
+    position:relative;
+    width:90%;
+}
+#experience .w120 {
+    width:100px;
+    display:inline-block;
+}
+#experience .w100 {
+    width:80px;
+    display:inline-block;
+}
+#experience .sw160 {
+    width:140px;
+}
+#experience input[type=text], #experience input[type=email], #experience input[type=tel], #experience input[type=number] {
+    width:180px;
+}
+#experience input[type=text], #experience input[type=email], #experience input[type=tel], #experience input[type=number], #experience select {
+    font-size: 15px;
+    padding: 7px;
+}
+#experience select {
+    min-width:80px;
+}
+
+#experience .remove-position-link {
+    display:none;
+    position:absolute;
+    top:10px;
+    right:10px;
+}

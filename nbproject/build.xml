@@ -232,7 +232,7 @@ made subject to such option by the copyright holder.
     </target>
     
     <target name="update-plugins">
-        <plugintask/>
+        <!--plugintask/-->
     </target>    
     
     <target name="update-android">
@@ -266,7 +266,8 @@ made subject to such option by the copyright holder.
             <env key="JAVA_HOME" path="${jdk.home}"/>
             <arg value="-d"/>   
             <arg value="build"/>   
-            <arg value="android"/>   
+	    <arg value="android"/>   
+	    <arg value="--release"/>
         </exec>
     </target>    
     

@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -30,7 +12,7 @@ body {
     background-color:#FFFFFF;
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:26px;
+    font-size:13px;
     height:100%;
     margin:0px;
     padding:0px;
@@ -46,8 +28,8 @@ a {
 .app {
     position:relative;
     text-align:center;
-    padding-top:150px;
-    padding-bottom:20px;
+    padding-top:75px;
+    padding-bottom:10px;
     z-index:1;
     display:none;
 }
@@ -55,7 +37,7 @@ a {
 #loading {
     position:fixed;
     text-align:center;
-    padding:25% 0;
+    padding:20% 0;
     width:100%;
     height:100%;
     background:rgba(255,255,255,0.7);
@@ -67,22 +49,22 @@ a {
     left:0px !important;
     position:fixed;
     width:100%;
-    height:120px;
+    height:60px;
     background:#FFF;
-    box-shadow:0 0 20px #000;
+    box-shadow:0 0 10px #000;
     z-index:2;
 }
 #page_header .logo {
     position:absolute;
-    top:10px;
+    top:5px;
     width:100%;
     text-align:center;
 }
 #top_navigation {
     position:relative;
     top:0px;
-    padding-top:20px;
-    left:20px;
+    padding-top:10px;
+    left:10px;
     z-index:100;
 }
 #top_navigation ul {
@@ -94,7 +76,7 @@ a {
     top:100%;
     list-style:none;
     background:#EFECEF;
-    box-shadow:0 20px 20px #333;
+    box-shadow:0 10px 10px #333;
 }
 #top_navigation ul a {
     white-space:nowrap;
@@ -102,26 +84,26 @@ a {
     color: #642d6e;
     display: block;
     font-family: Georgia;
-    font-size: 40px;
-    padding: 30px;
+    font-size: 20px;
+    padding: 15px;
     text-decoration: none;
-    text-shadow:3px 3px 0 #FFF;
+    text-shadow:1.5px 1.5px 0 #FFF;
 }
 #top_navigation ul a i {
     display:inline-block;
-    width:100px;
+    width:50px;
     text-align:center;
 }
 #top_navigation ul a span {
     display:inline-block;
     font-weight:bold;
     vertical-align:top;
-    margin-top:20px;
+    margin-top:10px;
 }
 #login_navigation {
     position:absolute;
-    right:20px;
-    top:20px;
+    right:10px;
+    top:10px;
     z-index:101;
 }
 
@@ -137,7 +119,7 @@ h1 {
     color: #642d6e;
     font-family: Georgia;
     font-weight: bold;    
-    font-size:32px;
+    font-size:16px;
     margin:0px;
     overflow:visible;
     padding:0px;
@@ -148,7 +130,7 @@ h1 {
     border-radius:4px;
     -webkit-border-radius:4px;
     color:#FFFFFF;
-    margin:0px 30px;
+    margin:0px 15px;
     padding:2px 0px;
 }
 
@@ -180,48 +162,63 @@ h1 {
 }
 
 .domestic-job-item {
-    padding:15px;
-    margin:10px 0;
+    padding:7px;
+    margin:5px 0;
     box-shadow:0 0 2px #CCC;
 }
 .domestic-job-item {
     text-align:left;
     border: 1px solid #cdc3cd;
-    margin: 20px 0;
+    margin: 10px 0;
     padding:0px;
 }
 .domestic-job-item h4 {
-    background: rgba(0, 0, 0, 0) url("../img/item_header_bgr.gif") repeat-x scroll left bottom;
+    background-image: linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(239,236,239)),
+            color-stop(1, rgb(249,249,249))
+    );
+    
     color: #826982;
-    font-size: 30px;
+    font-size: 15px;
     font-weight: bold;
     margin: 0;
-    min-height: 30px;
-    padding: 10px;
+    min-height: 15px;
+    padding: 5px;
     cursor:pointer;
 }
+.domestic-job-item .icon-chevron-up {
+    display:none;
+}
 .domestic-job-item .text {
-    padding: 10px;
+    padding: 5px;
 }
 .domestic-job-item .job-content {
     display:none;
 }
 .domestic-job-item .btns {
-    padding-bottom:20px;
+    padding-bottom:10px;
 }
 .domestic-job-item h4 {
     position:relative;
-    padding-right:50px;
-    padding-left:50px;
+    padding-right:25px;
+    padding-left:25px;
 }
 .domestic-job-item h4 .checked {
     position:absolute;
-    right:10px;
-    top:30%;
+    right:5px;
+    top:5px;
 }
 .domestic-job-item h4 .slide {
     position:absolute;
-    left:10px;
+    left:5px;
     top:40%;
 }
 .domestic-job-item .interested-btn {
@@ -239,19 +236,28 @@ h1 {
 .domestic-job-item h4 .checked {
     display:none;
 }
+.domestic-job-item.interested-job h4 {
+    background:#826982;
+    color:#FFF;
+}
+.domestic-job-item.interested-job h4 .slide {
+    color:#FFF;
+}
 .domestic-job-item.interested-job h4 .checked {
-    display:block;
+    /*display:block;*/
 }
 
 
 
 
-#domestic-jobs-content, #interested-content {
+#domestic-jobs-content, #interested-content, #one_job_content {
     width:94%;
     margin:0 auto;
 }
 
 .interest1 {
+    
+    display:inline-block;
     
     background-color: #816881;
     background-repeat: repeat-x;
@@ -273,9 +279,9 @@ h1 {
 
     border-radius:5px !important;
 
-    width:350px !important;
+    width:170px !important;
     height:auto !important;
-    padding:20px;
+    padding:10px 0 !important;
     
     border:none;
     
@@ -291,16 +297,18 @@ h1 {
 .reviewing {
     background:#FFF;
     color: #826982;
-    text-shadow:2px 2px 2px #3E3144;
+    text-shadow:1px 1px 1px #3E3144;
     box-shadow:3px 3px 3px #7D6E89;
 
     border-radius:5px !important;
 
-    width:350px !important;
+    width:170px !important;
     height:auto !important;
-    padding:20px;
+    padding:10px 0 !important;
     
     border:none;
+    
+    display:inline-block;
     
 }
 .interest2 {
@@ -325,9 +333,11 @@ h1 {
 
     border-radius:5px !important;
 
-    width:370px !important;
+    display:inline-block;
+    
+    width:180px !important;
     height:auto !important;
-    padding:20px;
+    padding:10px 0 !important;
     
     border:none;
 }
@@ -380,10 +390,10 @@ h1 {
     cursor: pointer;
     display: inline-block;
     font-family: Arial;
-    font-size: 36px;
+    font-size: 18px;
     font-weight: bold;
     height: auto;
-    padding: 20px 30px;
+    padding: 10px 15px;
     text-decoration: none;
     text-shadow: 0 1px 0 #2f2439;
     border-radius:5px;
@@ -393,16 +403,25 @@ h1 {
     border:1px solid #d3eed7;
     color: #4ab948;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
+}
+input.err {
+    background-color: #f2dede;
 }
 .error-msg {
     background-color: #f2dede;
     border:1px solid #eed3d7;
     color: #b94a48;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
+}
+.error {
+    color:#ee3333;
+}
+.tipsy {
+    font-size:11px !important;
 }
 
 
@@ -425,13 +444,13 @@ h1 {
     color:#642d6e;
     cursor: pointer;
     display: inline-block;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
     outline: medium none;
     text-align: left;
     text-decoration: none !important;
-    text-shadow: 3px 3px 0 #ffffff;
-    padding:10px 20px;
+    text-shadow: 1px 1px 0 #ffffff;
+    padding:5px 10px;
 }
 .m_btn.logged {
     background-image: linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
@@ -470,7 +489,7 @@ h1 {
 }
 .info-row .cell {
     display:table-cell;
-    padding:10px;
+    padding:5px;
 }
 
 #user .table {
@@ -490,16 +509,330 @@ h1 {
 }
 
 .tooltip {
-    height:40px;
+    height:20px;
 }
 
 
 #one_job {
     text-align:left;
-    width:90%;
     margin:0 auto;    
 }
 #one_job .domestic-job-item {
     border:none;
     text-shadow:none;
+}
+
+
+.first-cap:first-letter {
+    text-transform:uppercase;
+}
+
+span.checkbox {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.checkbox span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/checkbox.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.checkbox span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.checkbox input[type="checkbox"] + span {
+	visibility: visible;
+}
+span.checkbox input[type="checkbox"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input[type="checkbox"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/checkbox_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.checkbox input[type="checkbox"]:disabled {
+	cursor:default;
+}
+span.checkbox input[type="checkbox"]:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_disabled.png') center center no-repeat;*/
+}
+span.checkbox input[type="checkbox"]:checked:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_checked_disabled.png') center center no-repeat;*/
+}
+span.radio {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.radio span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/radio.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.radio span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.radio input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.radio input[type="radio"] + span {
+	visibility: visible;
+}
+span.radio input[type="radio"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.radio input[type="radio"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/radio_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.radio input[type="radio"]:disabled {
+	cursor:default !important;
+}	
+span.radio input[type="radio"]:disabled + span {
+	opacity:0.7;
+}
+span.radio input[type="radio"]:checked:disabled + span {
+	opacity:0.7;
+}
+
+#contacts-content img.big {
+    width:140px;
+    height:140px;
+    margin-right:10px;
+}
+
+
+
+span.checkbox {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.checkbox span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/checkbox.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.checkbox span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.checkbox input[type="checkbox"] + span {
+	visibility: visible;
+}
+span.checkbox input[type="checkbox"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input[type="checkbox"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/checkbox_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.checkbox input[type="checkbox"]:disabled {
+	cursor:default;
+}
+span.checkbox input[type="checkbox"]:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_disabled.png') center center no-repeat;*/
+}
+span.checkbox input[type="checkbox"]:checked:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_checked_disabled.png') center center no-repeat;*/
+}
+
+select {
+    font-size: 100%;
+    padding: 4px;	
+	padding-right:27px;
+	-webkit-appearance: none;
+	border: 2px inset;
+	background-image:url('../img/forms/select.png');
+	background-position:right center;
+	background-repeat: no-repeat;
+	background-color:#FFFFFF;
+}
+select[disabled], input[disabled], textarea[disabled] {
+    background-color: #dddddd;
+}
+
+.link_btn {
+    background-image: linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(239,236,239)),
+            color-stop(1, rgb(249,249,249))
+    );
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ddcee0;
+    color:#642d6e;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    outline: medium none;
+    text-align: left;
+    text-decoration: none !important;
+    text-shadow: 1px 1px 0 #ffffff;
+    padding:10px 20px;
+}
+
+.direct_phone {
+    display:block;
+}
+.not-logged .direct_phone {
+    display:none;
+}
+
+.office-appts-item {
+    width:90%;
+    margin:5px auto;
+}
+.office-appts-item p.b {
+}
+.office-appts-item figure img.user {
+    width:200px;
+}
+.agency_text {
+    margin:10px 0;
+    padding:20px;
+    background:#FEE;
+    text-align:left;
+}
+
+.client-appts-item {
+    width:100%;
+}
+.client-appts-item .text {
+    width:90%;
+    margin:5px auto;    
+}
+.client-appts-item h4 {
+    margin:5px 0;
+    padding:0;
+    font-size:14px;
+}
+.client-appts-item .map {
+    width:100%;
+    height:350px;
+    margin:5px 0;
+    border:0px;
+    padding:0px;
+}
+.client-appts-item span.client-block {
+    display:block;
+    margin:5px;
+}
+p.usr-link {
+    margin:10px;
+    text-align:center;
+}
+
+.form-section {
+    width:90%;
+    margin:10px auto;
+    padding:10px;
+    background:#F2F0F2;
+    text-align:left;
+}
+.form-section.table .cell {
+    vertical-align:middle;
+}
+.position-item, .chk_label {
+    display:block;
+    margin:10px 0;
+}
+
+
+
+
+@media only screen and (max-width: 380px) {
+    
+    .interest1, .interest2 {
+        
+    }
+    .bbtn {
+        width:100%;
+        float:none;
+        margin:7px 0;
+    }
+    
 }
