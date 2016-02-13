@@ -47,6 +47,7 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
+        alert(typeof(PushbotsPlugin));
         if(typeof(PushbotsPlugin) != 'undefined'){
             if (PushbotsPlugin.isAndroid()) {
                 document.body.style.zoom = 1 / this.zoomsize;
