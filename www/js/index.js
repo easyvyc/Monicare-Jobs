@@ -47,22 +47,19 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
-        if (PushbotsPlugin.isAndroid()) {
-            
-            document.body.style.zoom = 1 / this.zoomsize;
-            
-//            if(window.devicePixelRatio == 1){
-//                document.body.style.zoom = 1 / 2;
-//            }
-//            
-//            var wW0 = window.screen.width;
-//            var scale = wW0/this.viewPortWidth;
-//            var vPort = "width="+viewPortWidth+", maximum-scale="+scale+", minimum-scale="+scale+", initial-scale="+scale+", user-scalable=yes, target-densitydpi=device-dpi";
-//            document.getElementById("viewport").setAttribute("content", vPort);
+        if(typeof(PushbotsPlugin) != 'undefined'){
+            if (PushbotsPlugin.isAndroid()) {
+                document.body.style.zoom = 1 / this.zoomsize;
+            }
+
+            PushbotsPlugin.onNotificationClick(myMsgClickHandler);
+
+            if(PushbotsPlugin.isAndroid()){
+                PushbotsPlugin.initializeAndroid("5630fab4177959a53a8b4569", "338596121280");
+                this.device = { platform: 1 };
+            }        
         }
-        
-//        app.receivedEvent('deviceready');
-//        window.plugins.sim.getSimInfo(function(phone_number){ alert(phone_number); }, function(err){ alert(err); });
+
 
         // Mock device.platform property if not available
         if (!window.device) {
@@ -71,15 +68,8 @@ var app = {
         
         app.deviceId = device.platform + device.model + device.uuid;
         
-        //app.open_dialog('Device info', app.deviceId);
+        alert(app.deviceId);
         
-        PushbotsPlugin.onNotificationClick(myMsgClickHandler);
-        
-        if(PushbotsPlugin.isAndroid()){
-            PushbotsPlugin.initializeAndroid("5630fab4177959a53a8b4569", "338596121280");
-            this.device = { platform: 1 };
-        }        
-
         
 	$('input,select,textarea').on('change', function(){
             $(this).removeClass('err');
