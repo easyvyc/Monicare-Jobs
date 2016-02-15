@@ -1,4 +1,3 @@
-alert(1);
 var app = {
     
     main_url: "https://www.monicare.com/",
@@ -17,7 +16,6 @@ var app = {
     
     // Application Constructor
     initialize: function() {
-        alert(2);
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -25,7 +23,6 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        alert(3);
         document.addEventListener('deviceready', this.onDeviceReady, false);
 //        document.addEventListener('offline', this.onDeviceOffline, false);
 //        document.addEventListener('online', this.onDeviceOnline, false);
@@ -41,7 +38,6 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
-        alert(4);
         //Pushbots.sharedInstance().debug(true);
         
         window.addEventListener("orientationchange", updateOrientation, true);
@@ -51,7 +47,6 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
-        alert("hi watsap");
         alert(typeof(PushbotsPlugin));
         if(typeof(PushbotsPlugin) != 'undefined'){
             if (PushbotsPlugin.isAndroid()) {
@@ -73,9 +68,6 @@ var app = {
         }
         
         app.deviceId = device.platform + device.model + device.uuid;
-        
-        alert(app.deviceId);
-        
         
 	$('input,select,textarea').on('change', function(){
             $(this).removeClass('err');
