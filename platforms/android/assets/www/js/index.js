@@ -47,22 +47,18 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
+/*
         if(typeof(PushbotsPlugin) != 'undefined'){
-
-		alert('pushbot 1');
             if (PushbotsPlugin.isAndroid()) {
                 document.body.style.zoom = 1 / this.zoomsize;
             }
-		alert('pushbot 2');
-
             PushbotsPlugin.onNotificationClick(myMsgClickHandler);
 
             if(PushbotsPlugin.isAndroid()){
                 PushbotsPlugin.initializeAndroid("5630fab4177959a53a8b4569", "338596121280");
-		alert('pushbot ok');
             }        
         }
-
+*/
 
         // Mock device.platform property if not available
         if (!window.device) {
