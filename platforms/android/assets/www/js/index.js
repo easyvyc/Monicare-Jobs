@@ -67,7 +67,8 @@ var app = {
             window.device = { platform: 'Browser' };
         }
         
-        app.deviceId = device.platform + device.model + device.uuid;
+        app.deviceId = '' + device.platform + device.model + device.uuid;
+	alert(app.deviceId);
         
 	$('input,select,textarea').on('change', function(){
             $(this).removeClass('err');
@@ -1125,11 +1126,13 @@ var app = {
     loadItems: function(){
         
         var $app = this;
+	alert($app.main_url);
         $.ajax({
             url: $app.main_url + "app/job/get_json",
             dataType: 'json'
         }).done(function(json) {
             try{
+		alert(json.current_date);
                 $app.current_date = json.current_date;
                 $app.renderJobs(json.all);
                 if($app.open_pushbot_job_id){
@@ -1144,7 +1147,8 @@ var app = {
                 alert("Error: " + err.message);
             }
         }).fail(function(jqXHR, textStatus) {
-                //console.log("error"); 
+                //console.log("error");
+		alert('error: ' + textStatus); 
                 app.appError("Connection lost.");
         });                        
         
