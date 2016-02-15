@@ -48,9 +48,12 @@ var app = {
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
         if(typeof(PushbotsPlugin) != 'undefined'){
+
+		alert('pushbot 1');
             if (PushbotsPlugin.isAndroid()) {
                 document.body.style.zoom = 1 / this.zoomsize;
             }
+		alert('pushbot 2');
 
             PushbotsPlugin.onNotificationClick(myMsgClickHandler);
 
