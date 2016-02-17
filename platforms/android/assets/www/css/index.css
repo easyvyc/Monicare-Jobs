@@ -518,16 +518,18 @@ input.err {
 }
 #user .table .t {
     font-weight:bold;
-    width:30%;
+    width:25%;
 }
 #user .form-section {
     width:80%;
 }
 #user .edit {
     position:absolute;
-    top:20px;
-    right:20px;
-    font-size:18px;
+    top:15px;
+    right:15px;
+}
+#user .edit {
+    text-decoration:none;
 }
 
 #contacts-content {

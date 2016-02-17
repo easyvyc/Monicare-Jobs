@@ -47,6 +47,7 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
+        /*
         if(typeof(PushbotsPlugin) != 'undefined'){
             
             if (PushbotsPlugin.isAndroid()) {
@@ -67,7 +68,7 @@ var app = {
             }
             
         }
-
+        */
 
         // Mock device.platform property if not available
         if (!window.device) {
@@ -509,6 +510,8 @@ var app = {
             app.load_interviews();
         }else if(pg == '#positions'){
             app.load_positions();
+        }else if(pg == '#add_position'){
+            app.load_positions('add');
         }else if(pg == '#experience'){
             app.load_experience();
         }else if(pg == '#self-schedule'){

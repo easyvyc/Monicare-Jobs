@@ -47,6 +47,7 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
+        /*
         if(typeof(PushbotsPlugin) != 'undefined'){
             
             if (PushbotsPlugin.isAndroid()) {
@@ -67,7 +68,7 @@ var app = {
             }
             
         }
-
+        */
 
         // Mock device.platform property if not available
         if (!window.device) {
