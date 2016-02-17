@@ -48,16 +48,24 @@ var app = {
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
         if(typeof(PushbotsPlugin) != 'undefined'){
+            
             if (PushbotsPlugin.isAndroid()) {
                 document.body.style.zoom = 1 / this.zoomsize;
             }
-
+            
             PushbotsPlugin.onNotificationClick(myMsgClickHandler);
 
             if(PushbotsPlugin.isAndroid()){
                 PushbotsPlugin.initializeAndroid("5630fab4177959a53a8b4569", "338596121280");
                 this.device = { platform: 1 };
-            }        
+            }
+            
+            if (PushbotsPlugin.isiOS()) {
+                PushbotsPlugin.initializeiOS("PUSHBOTS_APP_ID");
+                $('body').addClass('iphone');
+                this.device = { platform: 2 };
+            }
+            
         }
 
 
@@ -397,34 +405,32 @@ var app = {
         $("#experience-form").on('submit', function(){
             app.startLoading();
             if(validate_form($('#experience-form'))){
-                $.ajax({
-                    url: app.main_url + "app/jobseeker/ajax_jobs/" + localStorage.getItem('user_id') + "/1",
-                    dataType: 'json',
-                    method: 'POST',
-                    data: $('#experience-form').serialize()
-                }).done(function(json) {
-                    try{
-                        app.endLoading();
-                        if($("#experience-form input[name=job_id]").val() == 0){
-                            //app.send_interview_self_schedule();
-                            $.ajax({ url: app.main_url + "app/jobseeker/send_self_schedule_invitation" });
-                            app.loadPage('#self-schedule', 'right');
-                        }else{
-                            app.loadPage('#all', 'left');
-                        }
-                        $("#experience-form input[name=job_id]").val(json.mongo_id);
-                    }catch(err) {
-                        alert("Error: " + err.message);
-                        app.endLoading();
-                    }
-                }).fail(function(jqXHR, textStatus) {
-                    //console.log("error"); 
-                    app.appError("Connection lost.");
-                }); 
-            }else{
-                app.endLoading();
                 alert('Please fill required fields.');
             }
+            $.ajax({
+                url: app.main_url + "app/jobseeker/ajax_jobs/" + localStorage.getItem('user_id') + "/1",
+                dataType: 'json',
+                method: 'POST',
+                data: $('#experience-form').serialize()
+            }).done(function(json) {
+                try{
+                    app.endLoading();
+                    if($("#experience-form input[name=job_id]").val() == 0){
+                        //app.send_interview_self_schedule();
+                        $.ajax({ url: app.main_url + "app/jobseeker/send_self_schedule_invitation" });
+                        app.loadPage('#self-schedule', 'right');
+                    }else{
+                        app.loadPage('#all', 'left');
+                    }
+                    $("#experience-form input[name=job_id]").val(json.mongo_id);
+                }catch(err) {
+                    alert("Error: " + err.message);
+                    app.endLoading();
+                }
+            }).fail(function(jqXHR, textStatus) {
+                //console.log("error"); 
+                app.appError("Connection lost.");
+            }); 
             
             return false;
         });
@@ -503,6 +509,8 @@ var app = {
             app.load_interviews();
         }else if(pg == '#positions'){
             app.load_positions();
+        }else if(pg == '#add_position'){
+            app.load_positions('add');
         }else if(pg == '#experience'){
             app.load_experience();
         }else if(pg == '#self-schedule'){

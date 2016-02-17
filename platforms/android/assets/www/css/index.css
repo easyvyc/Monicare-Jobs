@@ -108,6 +108,26 @@ a {
 }
 
 
+/* iphone reik nuleist viska per 20px del laikrodzio */
+body.iphone .app {
+    padding-top:95px;
+}
+body.iphone #page_header {
+    height:80px;
+}
+body.iphone #page_header .logo {
+    top:25px;
+}
+body.iphone #top_navigation {
+    top:20px;
+}
+body.iphone #login_navigation {
+    top:30px;
+}
+/* end iphone */
+
+
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
@@ -493,13 +513,21 @@ input.err {
 }
 
 #user .table {
-    width:80%;
     margin:0 auto;
     text-align:left;
 }
 #user .table .t {
     font-weight:bold;
     width:30%;
+}
+#user .form-section {
+    width:80%;
+}
+#user .edit {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:18px;
 }
 
 #contacts-content {
@@ -821,7 +849,9 @@ p.usr-link {
     margin:10px 0;
 }
 
-
+.rel {
+    position:relative;
+}
 
 
 @media only screen and (max-width: 380px) {

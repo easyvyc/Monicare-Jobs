@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
@@ -21,11 +21,11 @@
     </feature>
     <allow-intent href="market:*" />
     <access launch-external="yes" origin="market:*" />
-    <name>Monicare Inc. Domestic Jobs</name>
+    <name>MoniCare Jobs</name>
     <description>
         Find the domestic job of your dreams in Chicago area.
     </description>
-    <author email="info@monicare.com" href="http://www.monicare.com">
+    <author email="info@monicare.com" href="https://www.monicare.com">
         Monicare Inc.
     </author>
     <preference name="permissions" value="none" />
