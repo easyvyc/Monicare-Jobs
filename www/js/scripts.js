@@ -1,4 +1,23 @@
 
+function onGetPictureSuccess(mediaFiles) {
+    app.mediaFile = mediaFiles[0];    
+    initVideoPlayer(app.mediaFile.fullPath);
+    $('#upload-interview-video').removeClass('hide');   
+}
+
+function initVideoPlayer(videofile){
+    var video = document.getElementById('user-interview-video');
+    var source = document.createElement('source');
+    source.setAttribute('src', videofile);
+    //video.empty();
+    video.appendChild(source);
+    video.load();     
+}
+
+function onGetPictureFail(message) {
+    alert('Failed because: ' + message);
+}
+
 function open_external_url(url){
     if(confirm("This action will open full version of MoniCare application in a browser. Do you want to leave the Jobs App now?"))
         navigator.app.loadUrl(url, { openExternal: true });

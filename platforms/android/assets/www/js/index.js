@@ -10,6 +10,7 @@ var app = {
     zoomsize: 1,
     current_date: {},
     open_pushbot_job_id: 0,
+    session_id: '',
     
     positions_page_loaded: false,
     experience_page_loaded: false,
@@ -47,29 +48,22 @@ var app = {
         document.addEventListener("showkeyboard", showkeyboard_event, false);
         document.addEventListener("hidekeyboard", hidekeyboard_event, false);        
         
-        /*
         if(typeof(PushbotsPlugin) != 'undefined'){
-            
             if (PushbotsPlugin.isAndroid()) {
                 document.body.style.zoom = 1 / this.zoomsize;
             }
-            
             PushbotsPlugin.onNotificationClick(myMsgClickHandler);
-
             if(PushbotsPlugin.isAndroid()){
                 PushbotsPlugin.initializeAndroid("5630fab4177959a53a8b4569", "338596121280");
                 this.device = { platform: 1 };
             }
-            
             if (PushbotsPlugin.isiOS()) {
-                PushbotsPlugin.initializeiOS("PUSHBOTS_APP_ID");
+                PushbotsPlugin.initializeiOS("5630fab4177959a53a8b4569");
                 $('body').addClass('iphone');
                 this.device = { platform: 2 };
             }
-            
         }
-        */
-
+        
         // Mock device.platform property if not available
         if (!window.device) {
             window.device = { platform: 'Browser' };
@@ -86,14 +80,17 @@ var app = {
         document.addEventListener("backbutton", function(e){
             
             if(app.dialog_opened){
-                
                 app.close_dialog();
-                
             }else{
                 
                 navigator.app.backHistory();
                 var curr_hash = location.hash;
-
+                
+                // positions reik persokti
+                if(curr_hash == '#add_position' || curr_hash == '#positions'){
+                    curr_hash = '#user';
+                }
+                
                 if(curr_hash == '' && !app.back_to_exit){
                     curr_hash = '#all';
                     app.back_to_exit = true;
@@ -111,18 +108,6 @@ var app = {
         }, false);        
         
         app.loadItems();
-        
-        var USER_ID = localStorage.getItem('user_id');
-            
-        if(USER_ID){
-            if(app.loadUserById(USER_ID)){
-                $('body').removeClass('not-logged');
-                $('body').addClass('user-logged');
-            }
-            //$('#logged_user-btn span').html(localStorage.getItem('user_name'));
-        }else{
-            //$('#logged_user-btn').hide();
-        }
         
         var $app = this;
         
@@ -221,9 +206,6 @@ var app = {
                             app.set_logged(json);
                             
                             app.loadPage('#positions', 'right');
-                            
-//                            app.loadPage('#user', 'right');
-//                            app.show_msg('#user .login-success');
 
                         }else{
                             app.endLoading();
@@ -377,16 +359,13 @@ var app = {
                 }).done(function(json) {
                     try{
                         app.endLoading();
-                        if(json.ok == 1){
+                        if(json.experience_reload){
                             
-                            $('#user .info-row[data-rel=position] .v').html(json.application.position);
+                            //$('#user .info-row[data-rel=position] .v').html(json.application.position);
+                            
+                            app.setUserPageContent_btns(json.applications);
 
-                            app.loadPage('#experience', 'right');
-                            
-                            // uzdedam false tam kad paskui perkrautu experience puslapi nes skirtingos anketos Nanny, Baby Nurse ir kiti
-                            if(json.experience_reload){
-                                app.experience_page_loaded = true;
-                            }
+                            app.loadPage('#experience', 'right', json.mongo_id);
                             
                         }
                     }catch(err) {
@@ -405,8 +384,9 @@ var app = {
         
         $("#experience-form").on('submit', function(){
             app.startLoading();
-            if(validate_form($('#experience-form'))){
-                alert('Please fill required fields.');
+            var show_alert = false;
+            if(!validate_form($('#experience-form'))){
+                show_alert = true;
             }
             $.ajax({
                 url: app.main_url + "app/jobseeker/ajax_jobs/" + localStorage.getItem('user_id') + "/1",
@@ -416,12 +396,15 @@ var app = {
             }).done(function(json) {
                 try{
                     app.endLoading();
-                    if($("#experience-form input[name=job_id]").val() == 0){
-                        //app.send_interview_self_schedule();
-                        $.ajax({ url: app.main_url + "app/jobseeker/send_self_schedule_invitation" });
-                        app.loadPage('#self-schedule', 'right');
+                    if(show_alert){
+                        alert('Please fill required fields.');
                     }else{
-                        app.loadPage('#all', 'left');
+                        if(json.next_page == 'self-schedule'){
+                            //app.send_interview_self_schedule();
+                            app.loadPage('#self-schedule', 'right');
+                        }else{
+                            app.loadPage('#all', 'left');
+                        }
                     }
                     $("#experience-form input[name=job_id]").val(json.mongo_id);
                 }catch(err) {
@@ -477,6 +460,10 @@ var app = {
             
         }else{
             
+            if(json.session_id){
+                app.session_id = json.session_id;
+            }
+            
             localStorage.setItem('user_id', json.user_id);
             localStorage.setItem('user_name', json.user_name);
 
@@ -513,9 +500,15 @@ var app = {
         }else if(pg == '#add_position'){
             app.load_positions('add');
         }else if(pg == '#experience'){
-            app.load_experience();
+            if(arguments.length == 3){
+                app.load_experience(arguments[2]);
+            }else{
+                app.load_experience();
+            }
         }else if(pg == '#self-schedule'){
             app.load_self_schedule();
+        }else if(pg == '#user'){
+            app.load_page_user();
         }else if(pg == '#exit'){
             navigator.app.exitApp();
         }else{
@@ -523,7 +516,68 @@ var app = {
             $('#top_navigation ul').hide();
         }
     },
+
+    load_page_user:function(){
+        
+        $("#record-interview-video").on('click', function(){
+            navigator.device.capture.captureVideo(onGetPictureSuccess, onGetPictureFail, { limit: 1, quality: 0/*, duration:100*/ });            
+        });
+        $('#upload-interview-video').on('click', function(){
+            app.uploadFile();
+        });
+        
+        $("#user").show("slide", { direction: "right" }, 1000);
+        $('#top_navigation ul').hide();
+    },  
     
+    uploadFile: function() {
+        try{
+            var ft = new FileTransfer(),
+                path = app.mediaFile.fullPath,
+                name = app.mediaFile.name;
+                
+            var options = new FileUploadOptions();
+            options.mimeType = "video/mpeg";
+            options.fileKey="file";
+            options.fileName = "interview_video.mp4";
+            options.httpMethod="POST";
+            options.chunkedMode = false;
+            
+            options.params = { 
+                'file_type': 'interview_video', 
+                'session_id': app.session_id 
+            };
+
+            app.startLoading();
+
+//            alert(options.fileName);
+//            alert(path);
+            
+            ft.upload(path,
+                app.main_url + "app/jobseeker/upload",
+                function(result) {
+                    //alert('Bytes sent: ' + result.bytesSent.toString());
+                    
+                    alert(result.responseCode + " " + result.bytesSent);
+                    
+                    $("#user .form-section").html(result.response);
+                    
+                    if(result.responseCode == 200){
+                        app.endLoading();
+                    }
+                },
+                function(error) {
+                    alert('Error uploading file ' + path + ': ' + error.code);
+                    app.endLoading();
+                },
+                options);
+
+        }catch(e){
+            alert('Err: ' + e.message);
+        }
+
+    },
+
     add_experience_job_item: function(data){
         
         job_type = data.job_type;
@@ -566,53 +620,41 @@ var app = {
     
     load_experience: function(){
 
-//        if(!app.experience_page_loaded){
-            
-            //position = $("#position-form input[name=position]:checked").val();
-            
-            $.ajax({
-                url: app.main_url + "app/jobseeker/experience_ajax",
-                cache: false,
-                dataType: 'json',
-                beforeSend:function(){
-                    $('#experience-jobs-content').html("");
-                    app.startLoading();
-                },
-                success: function(data){
+        var mongo_id = 0;
+        if(arguments.length){
+            mongo_id = arguments[0];
+        }
 
+        $.ajax({
+            url: app.main_url + "app/jobseeker/experience_ajax/" + mongo_id,
+            cache: false,
+            dataType: 'json',
+            beforeSend:function(){
+                $('#experience-jobs-content').html("");
+                app.startLoading();
+            },
+            success: function(data){
+                if(data.error==1){
+                    alert("Cannot load experience. Please try again.");
+                }else{
                     items = data.jobs;
-
                     var html = "";
-                    
-//                    for(var i=0; i < items.length; i++){
-//                        html += $("#experience-childcare-job-item").render(items[i]);
-//                    }
                     if(items[0]){
                         app.add_experience_job_item(items[0]);
-                        //$('#experience-jobs-content').html($("#experience-childcare-job-item").render(items[0]));
                     }else{
                         app.add_experience_job_item({ job_id:0, job_type:data.job_type });
                     }
-
-                    $("#experience").show("slide", { direction: "right" }, 1000);
-                    $('#top_navigation ul').hide();
-
-                    app.endLoading();
                     app.experience_page_loaded = true;
-
                 }
-            }).fail(function(jqXHR, textStatus) {
-                    //console.log("error"); 
-                    app.appError("Connection lost.");
-            });
+                $("#experience").show("slide", { direction: "right" }, 1000);
+                $('#top_navigation ul').hide();
+                app.endLoading();
+            }
+        }).fail(function(jqXHR, textStatus) {
+                //console.log("error"); 
+                app.appError("Connection lost.");
+        });
             
-//            app.experience_page_loaded = true;
-//        }else{
-//            if($('#experience-jobs-content').html()==''){
-//                app.add_experience_job_item({job_id:0});
-//            }
-//        }
-
         $("#add-another-childcare-experience").on('click', function(){
             //if(validate_last_form()){
                 app.add_experience_job_item({job_id:0});
@@ -664,91 +706,103 @@ var app = {
                 
                 try{
 
-                    if(json.self_schedule_data.selected_period){
-                        $("#self-schedule-form").hide();
-                        $("#self-schedule-form-selected").show();
+                    if(json.enabled){
 
-                        json.monicare_url = app.main_url;
-                        html = $("#self-schedule-manage-assistant-selected").render(json);
-                        $("#self-schedule-form-selected .manage-assistant").html(html);
+                        if(json.self_schedule_data.selected_period){
+                            $("#self-schedule-form").hide();
+                            $("#self-schedule-form-selected").show();
 
-                    }else{
-                        $("#self-schedule-form").show();
-                        $("#self-schedule-form-selected").hide();
+                            json.monicare_url = app.main_url;
+                            html = $("#self-schedule-manage-assistant-selected").render(json);
+                            $("#self-schedule-form-selected .manage-assistant").html(html);
 
-                        $("#self-schedule-form input[name=user]").val(json.manage_assistant.id);
-                        json.monicare_url = app.main_url;
-                        html = $("#self-schedule-manage-assistant").render(json);
-                        $("#self-schedule-form .manage-assistant").html(html);
+                        }else{
+                            $("#self-schedule-form").show();
+                            $("#self-schedule-form-selected").hide();
 
-                        for(var i=0; i < json.days_to_select.length; i++){
-                            if(json.days_to_select[i].hours_easy.length == 0 || json.days_to_select[i].not_working_day == 1){
-                                date_eliminate[date_eliminate.length] = json.days_to_select[i].date;
-                            }else{
-                                day_to_select[json.days_to_select[i].date] = json.days_to_select[i];
+                            $("#self-schedule-form input[name=user]").val(json.manage_assistant.id);
+                            json.monicare_url = app.main_url;
+                            html = $("#self-schedule-manage-assistant").render(json);
+                            $("#self-schedule-form .manage-assistant").html(html);
+
+                            for(var i=0; i < json.days_to_select.length; i++){
+                                if(json.days_to_select[i].hours_easy.length == 0 || json.days_to_select[i].not_working_day == 1){
+                                    date_eliminate[date_eliminate.length] = json.days_to_select[i].date;
+                                }else{
+                                    day_to_select[json.days_to_select[i].date] = json.days_to_select[i];
+                                }
                             }
+
+                            $("#self-schedule-calendar").datepicker("destroy");
+                            $("#self-schedule-calendar").datepicker({
+                                minDate: +1, 
+                                maxDate: +14,
+                                firstDay: 1,
+                                dateFormat: "yy-mm-dd",
+                                beforeShowDay: function(date){
+                                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                                    return [$.inArray(string, date_eliminate) == -1];
+                                },
+                                onSelect: function(dateText, inst){
+                                    html = "";
+                                    var selected_date_data = day_to_select[dateText];
+                                    for(j = 0; j < 32; j++){
+                                        $min = (j % 4) * 15;
+                                        $title = 9 + parseInt(j / 4) + ":" + ($min == 0 ? "00" : $min) + (j < 12 ? "am" : "pm");
+                                        $val = 9 * 60 + j * 15;
+                                        $date = dateText;
+                                        $disabled = true;
+                                        for(z = 0; z < selected_date_data.hours_easy.length; z++){
+                                            min_start = (selected_date_data.hours_easy[z].start - selected_date_data.mktime) / 60;
+                                            min_end = (selected_date_data.hours_easy[z].end - selected_date_data.mktime) / 60;
+                                            $val1 = ($val + 30);
+                                            if($val >= min_start && $val1 <= min_end){
+                                                $disabled = false;
+                                                break;
+                                            }
+                                        }
+                                        html += $("#self-schedule-time-select").render({ value:$val, title:$title, date:$date, disabled:$disabled });
+                                    }
+                                    app.open_dialog("Select interview time", "<div class='self-schedule-time-select-dialog'>" + html + "</div>");
+                                    $(".self-schedule-time-select-dialog .self-schedule-time-select").on('click', function(){
+                                        if($(this).hasClass('disabled')){
+                                            alert("This time is reserved. Select other time.");
+                                        }else{
+                                            $("#self-schedule-form .selected-self-schedule-time").html("Your selected Office Interview day and time:<br />" + day_to_select[$(this).attr('data-date')].title + " " + $(this).html());
+                                            $("#self-schedule-form input[name=date]").val(day_to_select[$(this).attr('data-date')].mktime);
+                                            $("#self-schedule-form input[name=time]").val($(this).attr('data-value'));
+                                            $("#self-schedule-form .big_btn").show();
+                                            app.close_dialog();
+                                        }
+                                        return false;
+                                    });
+                                }
+                            });
                         }
 
-                        $("#self-schedule-calendar").datepicker("destroy");
-                        $("#self-schedule-calendar").datepicker({
-                            minDate: +1, 
-                            maxDate: +14,
-                            firstDay: 1,
-                            dateFormat: "yy-mm-dd",
-                            beforeShowDay: function(date){
-                                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                                return [$.inArray(string, date_eliminate) == -1];
-                            },
-                            onSelect: function(dateText, inst){
-                                html = "";
-                                var selected_date_data = day_to_select[dateText];
-                                for(j = 0; j < 32; j++){
-                                    $min = (j % 4) * 15;
-                                    $title = 9 + parseInt(j / 4) + ":" + ($min == 0 ? "00" : $min) + (j < 12 ? "am" : "pm");
-                                    $val = 9 * 60 + j * 15;
-                                    $date = dateText;
-                                    $disabled = true;
-                                    for(z = 0; z < selected_date_data.hours_easy.length; z++){
-                                        min_start = (selected_date_data.hours_easy[z].start - selected_date_data.mktime) / 60;
-                                        min_end = (selected_date_data.hours_easy[z].end - selected_date_data.mktime) / 60;
-                                        $val1 = ($val + 30);
-                                        if($val >= min_start && $val1 <= min_end){
-                                            $disabled = false;
-                                            break;
-                                        }
-                                    }
-                                    html += $("#self-schedule-time-select").render({ value:$val, title:$title, date:$date, disabled:$disabled });
-                                }
-                                app.open_dialog("Select interview time", "<div class='self-schedule-time-select-dialog'>" + html + "</div>");
-                                $(".self-schedule-time-select-dialog .self-schedule-time-select").on('click', function(){
-                                    if($(this).hasClass('disabled')){
-                                        alert("This time is reserved. Select other time.");
-                                    }else{
-                                        $("#self-schedule-form .selected-self-schedule-time").html("Your selected Office Interview day and time:<br />" + day_to_select[$(this).attr('data-date')].title + " " + $(this).html());
-                                        $("#self-schedule-form input[name=date]").val(day_to_select[$(this).attr('data-date')].mktime);
-                                        $("#self-schedule-form input[name=time]").val($(this).attr('data-value'));
-                                        $("#self-schedule-form .big_btn").show();
-                                        app.close_dialog();
-                                    }
-                                    return false;
-                                });
-                            }
+                        $("#self-schedule-form .confirm_btn").off("click");
+                        $("#self-schedule-form .confirm_btn").on('click', function(){
+                            app.confirm_interview_schedule();
+                            return false;
                         });
+                        $("#self-schedule-form-selected .cancel_btn").off("click");
+                        $("#self-schedule-form-selected .cancel_btn").on('click', function(){
+                            app.cancel_interview_schedule();
+                            return false;
+                        });
+                        
+                        $("#self-schedule").show("slide", { direction: "right" }, 1000);
+                        $('#top_navigation ul').hide();
+                        
+                    }else{
+                        
+                        $("#empty_page [data-role=content]").html(json.response_content);
+                        
+                        $("#empty_page").show("slide", { direction: "right" }, 1000);
+                        $('#top_navigation ul').hide();
+                        
                     }
 
-                    $("#self-schedule-form .confirm_btn").off("click");
-                    $("#self-schedule-form .confirm_btn").on('click', function(){
-                        app.confirm_interview_schedule();
-                        return false;
-                    });
-                    $("#self-schedule-form-selected .cancel_btn").off("click");
-                    $("#self-schedule-form-selected .cancel_btn").on('click', function(){
-                        app.cancel_interview_schedule();
-                        return false;
-                    });
-
-                    $("#self-schedule").show("slide", { direction: "right" }, 1000);
-                    $('#top_navigation ul').hide();
 
                 
                 }catch(err) {
@@ -827,44 +881,35 @@ var app = {
     
     load_positions: function(){
         
-//        if(app.positions_page_loaded){
-//            
-//            $("#positions").show("slide", { direction: "left" }, 1000);
-//            $('#top_navigation ul').hide();
-//            
-//        }else{
+        $.ajax({
+            url: app.main_url + "app/jobseeker/position_ajax",
+            cache: false,
+            dataType: 'json',
+            beforeSend:function(){
+                $('#positions-content').html("");
+                app.startLoading();
+            },
+            success: function(data){
 
-            $.ajax({
-                url: app.main_url + "app/jobseeker/position_ajax",
-                cache: false,
-                dataType: 'json',
-                beforeSend:function(){
-                    $('#positions-content').html("");
-                    app.startLoading();
-                },
-                success: function(data){
+                items = data.positions;
 
-                    items = data.positions;
-
-                    var html = "";
-                    for(var i=0; i < items.length; i++){
-                        html += $("#position-select-item").render(items[i]);
-                    }
-                    $('#positions-content').html(html);
-
-                    $("#positions").show("slide", { direction: "left" }, 1000);
-                    $('#top_navigation ul').hide();
-
-                    app.endLoading();
-                    app.positions_page_loaded = true;
-
+                var html = "";
+                for(var i=0; i < items.length; i++){
+                    html += $("#position-select-item").render(items[i]);
                 }
-            }).fail(function(jqXHR, textStatus) {
-                    //console.log("error"); 
-                    app.appError("Connection lost.");
-            });
-            
-//        }
+                $('#positions-content').html(html);
+
+                $("#positions").show("slide", { direction: "left" }, 1000);
+                $('#top_navigation ul').hide();
+
+                app.endLoading();
+                app.positions_page_loaded = true;
+
+            }
+        }).fail(function(jqXHR, textStatus) {
+                //console.log("error"); 
+                app.appError("Connection lost.");
+        });
         
     },
     
@@ -970,6 +1015,7 @@ var app = {
             success: function(json){
 
                 var html = "";
+                $('#interviews-content').html("");
                 if(json.office_appts.length){
                     for(var i=0; i < json.office_appts.length; i++){
                         var render_data = json.office_appts[i];
@@ -990,10 +1036,13 @@ var app = {
                     }
                 }
                 
-                if(json.office_appts.length == 0 && json.appointments.length == 0){
-                    $('#interviews-content').html("<p style='text-align:center'>You have no interviews</p>");
+                if(json.office_appts.length == 0 && json.appointments.length == 0 && json.self_schedule_enabled){
                     app.load_self_schedule();
                     return false;
+                }
+                
+                if(json.office_appts.length == 0 && json.appointments.length == 0){
+                    $('#interviews-content').html("<p style='text-align:center'>You have no interviews</p>");
                 }
 
                 app.endLoading();
@@ -1055,16 +1104,39 @@ var app = {
         return false;
     },
     
-    loadUserPageContent: function(data){
-        if(data.application){
-            $('#user .info-row[data-rel=position] .v').html(data.application.position);
-            
-            $("#positions-content input[value='" + data.application.position + "']").attr('checked', true);
-            if(data.application.looking_for){
-                for(i=0; i < data.application.looking_for.length; i++){
-                    $("#looking-for-content input[value='" + data.application.looking_for[i] + "']").attr('checked', true);
-                }
+    setUserPageContent_btns:function(applications){
+        var positions_value = '', exp_btns_html = '';
+        if(applications.length > 0){
+            for(var i=0; i < applications.length; i++){
+                positions_value += (i!=0 ? ', ' : '') + applications[i].position;
+                exp_btns_html += "<a href=\"#experience\" class=\"link_btn nav_link\" data-dir=\"right\" title=\"Experience\" data-position-id=\"" + applications[i].mongo_id + "\">Experience " + applications[i].position + "</a>";
             }
+            if(applications.length < 2){
+                exp_btns_html += "<a href=\"#add_position\" class=\"link_btn nav_link\" data-dir=\"right\" title=\"Add Position\">Add Another Position</a>";
+            }
+            $('#user .info-row[data-rel=position] .v').html(positions_value);
+        }else{
+            exp_btns_html = "<a href=\"#add_position\" class=\"link_btn nav_link\" data-dir=\"right\" title=\"Add Position\">Add Position</a>";
+        }
+        $("#exp-btns").html(exp_btns_html);
+        
+        $("#exp-btns .nav_link").click(function(){
+            var title = $(this).attr('title');
+            var pg = $(this).attr('href');
+            var dir = $(this).attr('data-dir');
+            app.loadPage(pg, dir, $(this).attr('data-position-id'));
+            window.history.pushState('', '', pg);
+            return false;
+        });
+        
+    },
+    
+    loadUserPageContent: function(data){
+        
+        app.setUserPageContent_btns(data.applications);
+        
+        if(data.interview_video){
+            initVideoPlayer(data.interview_video);
         }
         
         $('#user .info-row[data-rel=name] .v').html(data.first_name + " " + data.last_name);
@@ -1148,6 +1220,17 @@ var app = {
                     $(window).scrollTop(parseInt($obj.offset().top - $("#page_header").height() - 10));
                     $app.open_pushbot_job_id = 0;
                 }
+                
+                var USER_ID = localStorage.getItem('user_id');
+
+                if(USER_ID){
+                    if($app.loadUserById(USER_ID)){
+                        $('body').removeClass('not-logged');
+                        $('body').addClass('user-logged');
+                    }
+                    //$('#logged_user-btn span').html(localStorage.getItem('user_name'));
+                }
+                
             }catch(err) {
                 alert("Error: " + err.message);
             }

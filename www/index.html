@@ -189,7 +189,7 @@
                                 <div class="f"><input type="text" name="last_name" class="radius3 first-cap" placeholder="Lastname" required></div>
                                 <div class="f"><input type="tel" name="phone" class="radius3 phone" placeholder="Phone" required></div>
                                 <div class="f"><input type="text" name="city" class="radius3 first-cap" placeholder="City" required></div>
-                                <div class="f"><input type="number" name="zipcode" class="radius3 zipcode" placeholder="Zipcode" required></div>
+                                <div class="f"><input type="number" name="zipcode" class="radius3" placeholder="Zipcode" required></div>
                                 <div class="f"><input type="email" id="register-form-email-field" name="email" class="radius3" placeholder="E-mail" required></div>                                
                                 <div class="f"><input type="email" name="email2" class="radius3" data-valid-repeat="register-form-email-field" placeholder="Re-enter E-mail" required></div>
                                 
@@ -359,6 +359,18 @@
                     <p class="notice-msg">Login successfully.</p>
 
                 </div>
+
+                <div id="user-interview-video-content">
+                    
+                    <video id="user-interview-video" controls='controls'>
+                        
+                    </video>
+                    
+                </div>
+                
+                <a id="record-interview-video" class="link_btn"><i class="icon-video-camera"></i> Record Video</a>
+                &nbsp;
+                <a id="upload-interview-video" class="link_btn hide"><i class="icon-upload"></i> Save Video</a>
                 
 
                 <div class="form-section rel">
@@ -389,14 +401,9 @@
                     </div>
                 </div>
                 
-                <br /><br />
+                <br />
                 
-                <p class="usr-link">
-                    
-                    <a href="#experience" class="link_btn nav_link" data-dir="right" title="Experience">Experience</a>
-                    <a href="#add_position" class="link_btn nav_link" data-dir="right" title="Add Another Position">Add Another Position</a>
-                    
-                </p>
+                <p class="usr-link" id="exp-btns"></p>
                 
                 <br /><br />
                 
@@ -845,12 +852,29 @@
                     <p style="margin:0px">
                         <b>Reviewing my Calendar. I will let you know shortly.</b><br /><br />
                         {{:self_schedule_manage_assistant.manage.name}}, {{:self_schedule_manage_assistant.manage.position}} at MoniCare.<br /> 
-                        <a href="+1{{:self_schedule_manage_assistant.manage.js_phone}}">{{:self_schedule_manage_assistant.manage.js_phone}}</a>
+                        <a href="tel:+1{{:self_schedule_manage_assistant.manage.js_phone}}">{{:self_schedule_manage_assistant.manage.js_phone}}</a>
                     </p>
                     <div class="clear"></div>
                     <p style="text-align:center;">Your selected Office Interview day and time:<br /><b>{{:self_schedule_data.selected_period_text}}</b></p>
                     </script>
 
+                    <script id="self-schedule-manage-assistant-approved" type="text/x-jsrender">
+                    {{if self_schedule_manage_assistant.manage.image}}
+                    <figure>
+                        <img src="{{:monicare_url}}uploads/manage/{{:self_schedule_manage_assistant.manage.image}}" width='100' alt="">
+                    </figure>
+                    {{/if}}
+                    <p style="margin:0px">
+                        <b class="green-txt">CONFIRMED</b><br /><br />
+                        <b>Your selected Office Interview day and time:<br />{{:self_schedule_data.selected_period_text}}</b><br /><br />
+                        <b class="green-txt">See you at our office in Park Ridge, IL</b> <br /> 
+                        {{:self_schedule_manage_assistant.manage.name}}<br />
+                        <a href="tel:+1{{:self_schedule_manage_assistant.manage.js_phone}}">{{:self_schedule_manage_assistant.manage.js_phone}}</a>
+                    </p>
+                    <div class="clear"></div>
+                    </script>
+                    
+                    
                     <div class="selected-self-schedule-time"></div>
                     
                     <button class="link_btn cancel_btn">Cancel Office Interview</button>
@@ -1051,25 +1075,38 @@
         <script id="client-appts-tpl" type="text/x-jsrender">
         <div class="client-appts-item" id="appt_id_{{:id}}">
                 
+            <h4 class="title">{{:heading_title}}</h4>
+                
             <div class="text">
             
-                <h4>{{:heading_title}}</h4>
-        
-                <p>
-                    <span class="client-name client-block">{{:contact_name}}</span>
-                    <span class="client-phone client-block">
+                <span class="client-name client-block">
+                    <span class="l">Client name:</span>
+                    <span class="r">{{:contact_name}}</span>
+                </span>
+                <span class="client-address client-block">
+                    <span class="l">Address:</span>
+                    <span class="r">{{:address}}</span>
+                </span>
+                <span class="client-phone client-block">
+                    <span class="l">Phones:</span>
+                    <span class="r">
                         {{if parent1_phone1}}<a href="tel:+1{{:parent1_phone1}}">{{:parent1_phone1}}</a>{{/if}}
+                        {{if parent1_phone2}}<br /><a href="tel:+1{{:parent1_phone2}}">{{:parent1_phone2}}</a>{{/if}}
+                        {{if parent1_phone3}}<br /><a href="tel:+1{{:parent1_phone3}}">{{:parent1_phone3}}</a>{{/if}}
                     </span>
-                    <span class="client-phone client-block">
-                        {{if parent1_phone2}}<a href="tel:+1{{:parent1_phone2}}">{{:parent1_phone2}}</a>{{/if}}
+                </span>
+                <span class="appt-date client-block">
+                    <span class="l">Date and Time:</span>
+                    <span class="r">
+                        {{:appt_date_time}}
                     </span>
-                    <span class="client-phone client-block">
-                        {{if parent1_phone3}}<a href="tel:+1{{:parent1_phone3}}">{{:parent1_phone3}}</a>{{/if}}
-                    </span>
-                    <span class="appt-date client-block">{{:appt_date_time}}</span>
-                <p>
+                </span>
                 
-                <div class="map" ></div>
+                {{:map_address}}
+                
+                <div class="map">
+                    <iframe src="http://maps.google.com/maps?q={{:map_address}}" width="100%" height="100%"></iframe>
+                </div>
 
             </div>
 

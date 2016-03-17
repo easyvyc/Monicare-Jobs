@@ -16,6 +16,19 @@
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Capture">
+        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
     <feature name="PushbotsPlugin">
         <param name="android-package" value="com.pushbots.plugin.PushbotsPlugin" />
     </feature>
@@ -27,12 +40,17 @@
     </description>
     <author email="info@monicare.com" href="https://www.monicare.com">
         Monicare Inc.
-    </author>
+</author>
+    <preference name="orientation" value="portrait" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="disallowOverscroll" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="permissions" value="none" />
-    <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
-    <preference name="fullscreen" value="true" />
-    <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
     <preference name="stay-in-webview" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
@@ -43,11 +61,15 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-installLocation" value="auto" />
     <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="org.apache.cordova.Capture" />
     <gap:plugin name="org.apache.cordova.device-motion" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
     <gap:plugin name="pushbots-cordova-plugin" source="npm" />
     <icon src="www/img/logo_btn.png" />
     <gap:config-file parent="CFBundleShortVersionString" platform="ios">

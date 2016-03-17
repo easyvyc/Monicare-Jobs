@@ -30,21 +30,21 @@
     "cordova-plugin-media-capture": {
         "source": {
             "type": "git",
-            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-media-capture.git",
+            "url": "https://github.com/apache/cordova-plugin-media-capture.git",
             "subdir": "."
         }
     },
     "cordova-plugin-file": {
         "source": {
             "type": "git",
-            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-file.git",
+            "url": "https://github.com/apache/cordova-plugin-file.git",
             "subdir": "."
         }
     },
     "cordova-plugin-file-transfer": {
         "source": {
             "type": "git",
-            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-file-transfer.git",
+            "url": "https://github.com/apache/cordova-plugin-file-transfer.git",
             "subdir": "."
         }
     },
@@ -148,6 +148,12 @@
             "type": "git",
             "url": "https://github.com/pbakondy/cordova-plugin-sim.git",
             "subdir": "."
+        }
+    },
+    "org.apache.cordova.camera": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.camera"
         }
     }
 }
