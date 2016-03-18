@@ -77,15 +77,15 @@
 }
 .client-appts-item .map {
     width:100%;
-    height:350px;
     margin:5px 0;
     border:0px;
     padding:0px;
 }
-.client-appts-item .map iframe {
+.client-appts-item .map img {
     border:none;
     padding:0px;
     margin:0px;
+    width:100%;
 }
 .client-appts-item span.client-block {
     display:block;

@@ -548,21 +548,24 @@ var app = {
                 'session_id': app.session_id 
             };
 
+            //alert(app.mediaFile.size);
+            
             app.startLoading();
 
 //            alert(options.fileName);
 //            alert(path);
             
             ft.upload(path,
-                app.main_url + "app/jobseeker/upload",
+                app.main_url + "app/jobseeker/upload/1",
                 function(result) {
                     //alert('Bytes sent: ' + result.bytesSent.toString());
                     
-                    alert(result.responseCode + " " + result.bytesSent);
+                    //alert(result.responseCode + " " + result.bytesSent);
                     
-                    $("#user .form-section").html(result.response);
+                    //$("#user .form-section").html(result.response);
                     
                     if(result.responseCode == 200){
+                        $('#upload-interview-video').addClass('hide');
                         app.endLoading();
                     }
                 },
@@ -1032,7 +1035,7 @@ var app = {
                         render_data.monicare_url = app.main_url;
                         var appt_html = $("#client-appts-tpl").render(render_data);
                         $('#interviews-content').append(appt_html);
-                        $('#appt_id_' + json.appointments[i].id + ' .map').gmap({ 'center': new google.maps.LatLng(41.9407, -87.7542), 'zoom':10, 'mapTypeId': google.maps.MapTypeId.ROADMAP });
+                        //$('#appt_id_' + json.appointments[i].id + ' .map').gmap({ 'center': new google.maps.LatLng(41.9407, -87.7542), 'zoom':10, 'mapTypeId': google.maps.MapTypeId.ROADMAP });
                     }
                 }
                 

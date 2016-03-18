@@ -538,6 +538,10 @@ input.err {
 #upload-interview-video {
     
 }
+#user-interview-video-content {
+    background:#999;
+}
+
 #exp-btns .link_btn {
     margin:5px;
 }

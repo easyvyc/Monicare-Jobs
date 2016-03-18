@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.10">
     <name>MoniCare Jobs</name>
     <description>
         Find the domestic job of your dreams in Chicago area.
@@ -9,68 +9,71 @@
 </author>
 
 
-<preference name="orientation" value="portrait" />
-<preference name="Fullscreen" value="true" />
-<preference name="EnableViewportScale" value="false" />
-<preference name="disallowOverscroll" value="true" />
-<preference name="webviewbounce" value="false" />
-<preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
-<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
-<preference name="AndroidPersistentFileLocation" value="Compatibility" />
+<preference name="orientation" value="portrait"/>
+<preference name="Fullscreen" value="true"/>
+<preference name="EnableViewportScale" value="false"/>
+<preference name="disallowOverscroll" value="true"/>
+<preference name="webviewbounce" value="false"/>
+<preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root"/>
+<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root"/>
+<preference name="AndroidPersistentFileLocation" value="Compatibility"/>
 
-    <preference name="permissions" value="none" />
-    <preference name="target-device" value="universal" />
-    <preference name="prerendered-icon" value="true" />
-    <preference name="stay-in-webview" value="false" />
-    <preference name="ios-statusbarstyle" value="black-opaque" />
-    <preference name="detect-data-types" value="true" />
-    <preference name="exit-on-suspend" value="false" />
-    <preference name="show-splash-screen-spinner" value="true" />
-    <preference name="auto-hide-splash-screen" value="true" />
-    <preference name="disable-cursor" value="false" />
-    <preference name="android-installLocation" value="auto" />
-    <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="org.apache.cordova.file" />
-    <gap:plugin name="org.apache.cordova.file-transfer" />
-    <gap:plugin name="org.apache.cordova.Capture" />
-    <gap:plugin name="org.apache.cordova.device-motion" />
-    <gap:plugin name="org.apache.cordova.device-orientation" />
-    <gap:plugin name="org.apache.cordova.geolocation" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.media" />
-    <gap:plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
-    <gap:plugin name="pushbots-cordova-plugin" source="npm" />
-    <icon src="www/img/logo_btn.png" />
+    <preference name="permissions" value="none"/>
+    <preference name="target-device" value="universal"/>
+    <preference name="prerendered-icon" value="true"/>
+    <preference name="stay-in-webview" value="false"/>
+    <preference name="ios-statusbarstyle" value="black-opaque"/>
+    <preference name="detect-data-types" value="true"/>
+    <preference name="exit-on-suspend" value="false"/>
+    <preference name="show-splash-screen-spinner" value="true"/>
+    <preference name="auto-hide-splash-screen" value="true"/>
+    <preference name="disable-cursor" value="false"/>
+    <preference name="android-installLocation" value="auto"/>
+    <gap:plugin name="org.apache.cordova.device"/>
+    <gap:plugin name="org.apache.cordova.file"/>
+    <gap:plugin name="org.apache.cordova.file-transfer"/>
+    <gap:plugin name="org.apache.cordova.Capture"/>
+    <gap:plugin name="org.apache.cordova.device-motion"/>
+    <gap:plugin name="org.apache.cordova.device-orientation"/>
+    <gap:plugin name="org.apache.cordova.geolocation"/>
+    <gap:plugin name="org.apache.cordova.inappbrowser"/>
+    <gap:plugin name="org.apache.cordova.media"/>
+    <gap:plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6"/>
+    <gap:plugin name="pushbots-cordova-plugin" source="npm"/>
+    <icon src="www/img/logo_btn.png"/>
     <gap:config-file parent="CFBundleShortVersionString" platform="ios">
         <string>100</string>
     </gap:config-file>
-    <access origin="*" />
-    <plugin name="cordova-plugin-whitelist" version="1" />
-    <content src="index.html" />
-    <access launch-external="yes" origin="mailto:*" />
-    <access launch-external="yes" origin="tel:*" />
-    <access launch-external="yes" origin="sms:*" />
-    <access launch-external="yes" origin="geo:*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
+    <access origin="*"/>
+    <plugin name="cordova-plugin-whitelist" version="1"/>
+
+	<allow-navigation href="*"/>
+
+    <content src="index.html"/>
+    <access launch-external="yes" origin="mailto:*"/>
+    <access launch-external="yes" origin="tel:*"/>
+    <access launch-external="yes" origin="sms:*"/>
+    <access launch-external="yes" origin="geo:*"/>
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+    <allow-intent href="tel:*"/>
+    <allow-intent href="sms:*"/>
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
     <platform name="android">
-        <allow-intent href="market:*" />
-        <access launch-external="yes" origin="market:*" />
+        <allow-intent href="market:*"/>
+        <access launch-external="yes" origin="market:*"/>
     </platform>
     <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
+        <allow-intent href="itms:*"/>
+        <allow-intent href="itms-apps:*"/>
     </platform>
     <feature name="File">
-        <param name="id" value="cordova-plugin-file" />
-        <param name="url" value="https://github.com/apache/cordova-plugin-file.git" />
+        <param name="id" value="cordova-plugin-file"/>
+        <param name="url" value="https://github.com/apache/cordova-plugin-file.git"/>
     </feature>
     <feature name="File Transfer">
-        <param name="id" value="cordova-plugin-file-transfer" />
-        <param name="url" value="https://github.com/apache/cordova-plugin-file-transfer.git" />
+        <param name="id" value="cordova-plugin-file-transfer"/>
+        <param name="url" value="https://github.com/apache/cordova-plugin-file-transfer.git"/>
     </feature>
 </widget>
