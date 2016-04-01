@@ -3,7 +3,8 @@ function onGetPictureSuccess(mediaFiles) {
     app.mediaFile = mediaFiles[0];
     if((app.mediaFile.size / (1024 * 1024)) < 100){
         initVideoPlayer(app.mediaFile.fullPath);
-        $('#upload-interview-video').removeClass('hide');
+        app.uploadFile();
+        //$('#upload-interview-video').removeClass('hide');
     }else{
         alert("Video file is too large.");
     }

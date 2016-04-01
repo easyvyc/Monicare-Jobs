@@ -490,6 +490,21 @@ input.err {
     text-shadow:1px 1px 0 #3e284b;
 }
 
+.grey_btn {
+    background:#666;
+    background: -webkit-linear-gradient(#666, #555); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#666, #555); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#666, #555); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#666, #555); /* Standard syntax */        
+}
+.green_btn {
+    background:#22B14C;
+    background: -webkit-linear-gradient(#22B14C, #1E903F); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#22B14C, #1E903F); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#22B14C, #1E903F); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#22B14C, #1E903F); /* Standard syntax */       
+}
+
 
 #map {
     width:100%;
@@ -540,6 +555,14 @@ input.err {
 }
 #user-interview-video-content {
     background:#999;
+    padding:0px;
+    margin-bottom:10px;
+}
+#user-interview-video-content video {
+    margin:0px;
+    padding:0px;
+    max-height:300px;
+    overflow:hidden;
 }
 
 #exp-btns .link_btn {

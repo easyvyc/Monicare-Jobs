@@ -260,7 +260,7 @@ var app = {
                             app.show_msg("#profile-page-content .error-msg");
                         }
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        //alert("Error: " + err.message);
                         app.endLoading();
                     }
                 }).fail(function(jqXHR, textStatus) {
@@ -550,7 +550,7 @@ var app = {
 
             //alert(app.mediaFile.size);
             
-            app.startLoading();
+            //app.startLoading();
 
 //            alert(options.fileName);
 //            alert(path);
@@ -566,12 +566,12 @@ var app = {
                     
                     if(result.responseCode == 200){
                         $('#upload-interview-video').addClass('hide');
-                        app.endLoading();
+                        //app.endLoading();
                     }
                 },
                 function(error) {
                     alert('Error uploading file ' + path + ': ' + error.code);
-                    app.endLoading();
+                    //app.endLoading();
                 },
                 options);
 
@@ -786,6 +786,14 @@ var app = {
                         $("#self-schedule-form .confirm_btn").off("click");
                         $("#self-schedule-form .confirm_btn").on('click', function(){
                             app.confirm_interview_schedule();
+                            return false;
+                        });
+                        $("#self-schedule-form .cancel_btn").off("click");
+                        $("#self-schedule-form .cancel_btn").on('click', function(){
+                            $("#self-schedule-form .selected-self-schedule-time").html("");
+                            $("#self-schedule-form input[name=date]").val("");
+                            $("#self-schedule-form input[name=time]").val("");
+                            $("#self-schedule-form .big_btn").hide();
                             return false;
                         });
                         $("#self-schedule-form-selected .cancel_btn").off("click");

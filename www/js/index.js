@@ -260,7 +260,7 @@ var app = {
                             app.show_msg("#profile-page-content .error-msg");
                         }
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        //alert("Error: " + err.message);
                         app.endLoading();
                     }
                 }).fail(function(jqXHR, textStatus) {
@@ -477,10 +477,8 @@ var app = {
 
             app.is_logged = true;
             
-            if(typeof(json.interests)!='undefined'){
-                for(i=0; i<json.interests.length; i++){
-                    $("#job_id_" + json.interests[i].job_post_id).addClass('interested-job');
-                }
+            for(i=0; i<json.interests.length; i++){
+                $("#job_id_" + json.interests[i].job_post_id).addClass('interested-job');
             }
             
         }

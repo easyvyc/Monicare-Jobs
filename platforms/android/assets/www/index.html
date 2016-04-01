@@ -351,7 +351,6 @@
                 
                 <h1 class="title">My Profile</h1>
                 
-                <br /><br />
                 
                 <div class="login-success">
 
@@ -359,6 +358,12 @@
 
                 </div>
 
+                <p style="text-align:left;margin:10px;">
+                    Speed up your application process by recording a video.<br />
+                    It will be seen by MoniCare staff only and will never be shared with any 3rd party.<br />
+                    All files are encrypted and kept confidential.                    
+                </p>
+                
                 <div id="user-interview-video-content">
                     
                     <video id="user-interview-video" controls='controls'>
@@ -367,21 +372,7 @@
                     
                 </div>
                 
-                <a id="record-interview-video" class="link_btn"><i class="icon-video-camera"></i> Record Video</a>
-                &nbsp;
-                <a id="upload-interview-video" class="link_btn hide"><i class="icon-upload"></i> Save Video</a>
-                
-                <!--form method="post" enctype="multipart/form-data" action="https://www.monicare.com/app/jobseeker/upload" target="_ifrm">
-                    
-                    <input type="hidden" name="test" value="test-value">
-                    
-                    <input type="file" name="upl_file">
-                    
-                    <input type="submit">
-                    
-                </form>
-                
-                <iframe id="_ifrm" style="width:300px;height:400px;"></iframe-->
+                <a id="record-interview-video" class="link_btn"><i class="icon-facetime-video"></i> Record Video</a>
                 
 
                 <div class="form-section rel">
@@ -866,7 +857,7 @@
                         <a href="tel:+1{{:self_schedule_manage_assistant.manage.js_phone}}">{{:self_schedule_manage_assistant.manage.js_phone}}</a>
                     </p>
                     <div class="clear"></div>
-                    <p style="text-align:center;">Your selected Office Interview day and time:<br /><b>{{:self_schedule_data.selected_period_text}}</b></p>
+                    <p style="text-align:center;"><b>Your selected Office Interview day and time:<br />{{:self_schedule_data.selected_period_text}}</b></p>
                     </script>
 
                     <script id="self-schedule-manage-assistant-approved" type="text/x-jsrender">
@@ -888,7 +879,7 @@
                     
                     <div class="selected-self-schedule-time"></div>
                     
-                    <button class="link_btn cancel_btn">Cancel Office Interview</button>
+                    <button class="link_btn cancel_btn grey_btn">Cancel Office Interview</button>
                     
                 </form>
                 
@@ -912,7 +903,9 @@
 
                     <div class="selected-self-schedule-time"></div>
 
-                    <button class="big_btn confirm_btn" style="display:none">Confirm Interview Time</button>
+                    <button class="big_btn confirm_btn green_btn" style="display:none">Confirm Interview Time</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button class="big_btn cancel_btn grey_btn" style="display:none">Cancel</button>
                     
                     <input type="hidden" name="date" value="">
                     <input type="hidden" name="time" value="">
