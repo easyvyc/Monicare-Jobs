@@ -64,6 +64,7 @@
     margin:10px 0;
 }
 #dialogPage .client_app .form .f input[type="text"], 
+#dialogPage .client_app .form .f input[type="number"],
 #dialogPage .client_app .form .f input[type="password"], 
 #dialogPage .client_app .form .f input[type="email"],
 #dialogPage #interest_dialog_form .txt {
