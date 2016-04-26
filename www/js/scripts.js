@@ -112,6 +112,15 @@ function valid_checkbox(field){
         return false;
     }
 }
+function valid_radio(field){
+    var name = field.attr('name');
+    $('input[name=' + name + ']').each(function(){
+        if($(this).is(':checked')){
+            return true;
+        }        
+    });
+    return false;
+}
 function validate_form(form){
     var valid = true;
 
@@ -122,6 +131,7 @@ function validate_form(form){
         if($(this).attr('type')=='number') fn = valid_number;
         if($(this).attr('type')=='password') fn = valid_password;
         if($(this).attr('type')=='checkbox') fn = valid_checkbox;
+        if($(this).attr('type')=='radio') fn = valid_radio;
         if(!fn($(this))){
             $(this).addClass('err');
             //$(this).closest('label').addClass('err');
