@@ -642,6 +642,9 @@ span.checkbox input[type="checkbox"]:checked + span {
 	background: url('../img/forms/checkbox_checked.png') center center no-repeat;
 	background-size: contain;
 }
+span.checkbox input[type="checkbox"].err + span {
+    background: url('../img/forms/checkbox_err.png') center center no-repeat;
+}
 span.checkbox input[type="checkbox"]:disabled {
 	cursor:default;
 }
@@ -700,6 +703,9 @@ span.radio input[type="radio"]:checked + span {
 	visibility: visible; /*show the "YES" label only if the radio button is checked*/
 	background: url('../img/forms/radio_checked.png') center center no-repeat;
 	background-size: contain;
+}
+span.radio input[type="radio"].err + span {
+    background: url('../img/forms/radio_err.png') center center no-repeat;
 }
 span.radio input[type="radio"]:disabled {
 	cursor:default !important;

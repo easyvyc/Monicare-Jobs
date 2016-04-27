@@ -509,6 +509,9 @@
                             <b class="w120" data-for="childcare_parent1_phone1">Phone:<em>*</em></b>
                             <input type="tel" name="childcare_parent1_phone1" value="{{:childcare_parent1_phone1}}" class="phone" required="true" /><br/>
 
+                            <b class="w120" data-for="childcare_parent_email">E-mail:<em>*</em></b>
+                            <input type="email" name="childcare_parent_email" value="{{:childcare_parent_email}}" class="email" required="true" /><br/>
+
                             <b class="w120" data-for="childcare_city">City:<em>*</em></b>
                             <input type="text" name="childcare_city" class="first-cap" value="{{:childcare_city}}" required="true" /><br/>
 
@@ -569,6 +572,18 @@
                             </select><br/>
 
                             <hr/>
+
+                            <b data-for="childcare_agree_email_to_reference">Reference Verification by MoniCare<em>*</em></b><br />
+                            <span class="small_text">
+                            Can we contact them to verify your employment? If you are still working for them and <u>do not</u> want us to contact them, mark "No".
+                            </span>
+                            <br />
+                            
+                            <b>Contact: {{:childcare_agree_email_to_reference}}</b>
+                            <label><span class="radio"><input type="radio" name="childcare_agree_email_to_reference" value="Yes" {{if childcare_agree_email_to_reference == 'Yes'}}checked{{/if}} /><span></span></span>Yes</label>
+                            <label><span class="radio"><input type="radio" name="childcare_agree_email_to_reference" value="No" {{if childcare_agree_email_to_reference == 'No'}}checked{{/if}} /><span></span></span>No</label>
+
+                            <hr />
 
                             <b class="w120" data-for="childcare_job_title">Job Title:<em>*</em></b>
                             <select name="childcare_job_title" class="sw160" required="true">
@@ -682,6 +697,9 @@
                             <b class="w120" data-for="domestic_parent1_phone1">Phone:<em>*</em></b>
                             <input type="tel" name="domestic_parent1_phone1" value="{{:domestic_parent1_phone1}}" class="phone" required="true" /><br/>
 
+                            <b class="w120" data-for="domestic_parent_email">E-mail:<em>*</em></b>
+                            <input type="email" name="domestic_parent_email" value="{{:domestic_parent_email}}" class="email" required="true" /><br/>
+
                             <b class="w120" data-for="domestic_city">City:<em>*</em></b>
                             <input type="text" name="domestic_city" class="first-cap" value="{{:domestic_city}}" required="true" /><br/>
 
@@ -740,6 +758,19 @@
                                 <option value="WI"  >Wisconsin</option>
                                 <option value="WY"  >Wyoming</option>
                             </select><br/>
+
+                            <hr/>
+
+                            <b data-for="domestic_agree_email_to_reference">Reference Verification by MoniCare<em>*</em></b><br />
+                            <span class="small_text">
+                            Can we contact them to verify your employment? If you are still working for them and <u>do not</u> want us to contact them, mark "No".
+                            </span>
+                            <br />
+                            
+                            <b>Contact: </b>
+                            <label><span class="radio"><input type="radio" required="true" name="domestic_agree_email_to_reference" value="Yes" {{if domestic_agree_email_to_reference=='Yes'}}checked{{/if}} /><span></span></span>Yes</label>
+                            <label><span class="radio"><input type="radio" required="true" name="domestic_agree_email_to_reference" value="No" {{if domestic_agree_email_to_reference=='No'}}checked{{/if}} /><span></span></span>No</label>
+
 
                             <hr/>
 
