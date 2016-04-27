@@ -71,8 +71,14 @@ var app = {
         
         app.deviceId = device.platform + device.model + device.uuid;
         
-	$('input,select,textarea').on('change', function(){
+	$('input,textarea,select').on('change', function(){
             $(this).removeClass('err');
+            if($(this).attr('type')=='radio'){
+               nm = $(this).attr('name');
+               $("input[name=" + nm + "]").each(function(){
+                   $(this).removeClass('err');
+               });
+            }
             //$(this).closest('label').removeClass('err');
 	});
         
@@ -598,8 +604,14 @@ var app = {
         $('#experience-jobs-content .phone').mask("(999) 999-9999");
         $('#experience-jobs-content .zipcode').mask("99999");
 
-	$('input,select,textarea', $('#experience-jobs-content')).on('change', function(){
+	$('input,textarea,select', $('#experience-jobs-content')).on('change', function(){
             $(this).removeClass('err');
+            if($(this).attr('type')=='radio'){
+               nm = $(this).attr('name');
+               $("input[name=" + nm + "]", $('#experience-jobs-content')).each(function(){
+                   $(this).removeClass('err');
+               });
+            }
 	});
         
         $('#experience-jobs-content input[name=still_working]').on('change', function(){

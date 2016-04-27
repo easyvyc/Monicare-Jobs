@@ -114,12 +114,13 @@ function valid_checkbox(field){
 }
 function valid_radio(field){
     var name = field.attr('name');
+    var ret = false;
     $('input[name=' + name + ']').each(function(){
         if($(this).is(':checked')){
-            return true;
+            ret = true;
         }        
     });
-    return false;
+    return ret;
 }
 function validate_form(form){
     var valid = true;

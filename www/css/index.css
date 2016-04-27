@@ -644,6 +644,7 @@ span.checkbox input[type="checkbox"]:checked + span {
 }
 span.checkbox input[type="checkbox"].err + span {
     background: url('../img/forms/checkbox_err.png') center center no-repeat;
+    background-size: contain;
 }
 span.checkbox input[type="checkbox"]:disabled {
 	cursor:default;
@@ -706,6 +707,7 @@ span.radio input[type="radio"]:checked + span {
 }
 span.radio input[type="radio"].err + span {
     background: url('../img/forms/radio_err.png') center center no-repeat;
+    background-size: contain;
 }
 span.radio input[type="radio"]:disabled {
 	cursor:default !important;
