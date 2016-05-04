@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.14">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.coolappz.MonicareInc.DomesticJobs" version="1.1.2">
     <name>MoniCare Jobs</name>
     <description>
         Find the domestic job of your dreams in Chicago area.
@@ -7,17 +7,14 @@
     <author email="info@monicare.com" href="https://www.monicare.com">
         Monicare Inc.
 </author>
-
-
-<preference name="orientation" value="portrait"/>
-<preference name="Fullscreen" value="true"/>
-<preference name="EnableViewportScale" value="false"/>
-<preference name="disallowOverscroll" value="true"/>
-<preference name="webviewbounce" value="false"/>
-<preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root"/>
-<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root"/>
-<preference name="AndroidPersistentFileLocation" value="Compatibility"/>
-
+    <preference name="orientation" value="portrait"/>
+    <preference name="Fullscreen" value="true"/>
+    <preference name="EnableViewportScale" value="false"/>
+    <preference name="disallowOverscroll" value="true"/>
+    <preference name="webviewbounce" value="false"/>
+    <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root"/>
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root"/>
+    <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
     <preference name="permissions" value="none"/>
     <preference name="target-device" value="universal"/>
     <preference name="prerendered-icon" value="true"/>
@@ -29,7 +26,6 @@
     <preference name="auto-hide-splash-screen" value="true"/>
     <preference name="disable-cursor" value="false"/>
     <preference name="android-installLocation" value="auto"/>
-    
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.file"/>
     <gap:plugin name="org.apache.cordova.file-transfer"/>
@@ -47,9 +43,7 @@
     </gap:config-file>
     <access origin="*"/>
     <plugin name="cordova-plugin-whitelist" version="1"/>
-
-	<allow-navigation href="*"/>
-
+    <allow-navigation href="*"/>
     <content src="index.html"/>
     <access launch-external="yes" origin="mailto:*"/>
     <access launch-external="yes" origin="tel:*"/>
@@ -77,4 +71,5 @@
         <param name="id" value="cordova-plugin-file-transfer"/>
         <param name="url" value="https://github.com/apache/cordova-plugin-file-transfer.git"/>
     </feature>
+    <engine name="android" spec="~5.1.1"/>
 </widget>

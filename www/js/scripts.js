@@ -20,7 +20,7 @@ function initVideoPlayer(videofile){
 }
 
 function onGetPictureFail(message) {
-    alert('Failed because: ' + message);
+    //alert('Failed because: ' + message);
 }
 
 function open_external_url(url){

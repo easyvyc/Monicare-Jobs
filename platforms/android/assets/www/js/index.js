@@ -11,6 +11,7 @@ var app = {
     current_date: {},
     open_pushbot_job_id: 0,
     session_id: '',
+    pushbot_token: '',
     
     positions_page_loaded: false,
     experience_page_loaded: false,
@@ -61,6 +62,13 @@ var app = {
                 PushbotsPlugin.initializeiOS("5630fab4177959a53a8b4569");
                 $('body').addClass('iphone');
                 this.device = { platform: 2 };
+            }
+            try{
+                PushbotsPlugin.getToken(function(tok){
+                    app.pushbot_token = tok;
+                });
+            }catch(e){
+                //alert(e.message);
             }
         }
         
@@ -203,7 +211,7 @@ var app = {
                     url: app.main_url + "app/jobseeker/registration_mobileapp/" + app.device.platform,
                     dataType: 'json',
                     method: 'POST',
-                    data: $('#register-form').serialize() + '&device_id=' + app.deviceId,
+                    data: $('#register-form').serialize() + '&device_id=' + app.deviceId + '&pushbot_token=' + app.pushbot_token,
                 }).done(function(json) {
                     try{
                         if(json.ok == 1 && json.role == 5){
@@ -289,7 +297,7 @@ var app = {
                 url: app.main_url + "app/auth/ajax_login",
                 dataType: 'json',
                 method: 'POST',
-                data: $('#login-form').serialize() + '&device_id=' + app.deviceId,
+                data: $('#login-form').serialize() + '&device_id=' + app.deviceId + '&pushbot_token=' + app.pushbot_token,
             }).done(function(json) {
                 try{
                     if(json.ok == 1 && json.role == 5){
@@ -452,7 +460,7 @@ var app = {
                 cache: false,
                 method: "POST",
                 dataType: "json",
-                data: { user_id: json.user_id, device_id: app.deviceId },
+                data: { user_id: json.user_id, device_id: app.deviceId, pushbot_token: app.pushbot_token },
                 beforeSend:function(){
                 },
                 success: function(json){
@@ -472,6 +480,10 @@ var app = {
             
             localStorage.setItem('user_id', json.user_id);
             localStorage.setItem('user_name', json.user_name);
+
+            if(typeof(PushbotsPlugin) != 'undefined'){
+                PushbotsPlugin.setAlias(json.user_name);
+            }
 
             localStorage.setItem('user_data', JSON.stringify(json.user_data));
             //$('#logged_as_name').html(json.user_name);
@@ -526,7 +538,7 @@ var app = {
     load_page_user:function(){
         
         $("#record-interview-video").on('click', function(){
-            navigator.device.capture.captureVideo(onGetPictureSuccess, onGetPictureFail, { limit: 1, quality: 0/*, duration:100*/ });            
+            navigator.device.capture.captureVideo(onGetPictureSuccess, onGetPictureFail, { limit: 1, quality: 0, cameraDirection: 1 /*, duration:100*/ });            
         });
         $('#upload-interview-video').on('click', function(){
             app.uploadFile();

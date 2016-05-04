@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.coolappz.MonicareInc.DomesticJobs" version="1.0.14" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.coolappz.MonicareInc.DomesticJobs" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
+    <feature name="PushbotsPlugin">
+        <param name="android-package" value="com.pushbots.plugin.PushbotsPlugin" />
+    </feature>
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
     </feature>
@@ -29,8 +32,9 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <feature name="PushbotsPlugin">
-        <param name="android-package" value="com.pushbots.plugin.PushbotsPlugin" />
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
     </feature>
     <allow-intent href="market:*" />
     <access launch-external="yes" origin="market:*" />
@@ -76,7 +80,6 @@
         <string>100</string>
     </gap:config-file>
     <access origin="*" />
-    <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-navigation href="*" />
     <content src="index.html" />
     <access launch-external="yes" origin="mailto:*" />
