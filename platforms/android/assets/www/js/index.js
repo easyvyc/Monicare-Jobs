@@ -208,7 +208,7 @@ var app = {
                 app.startLoading();
 
                 $.ajax({
-                    url: app.main_url + "app/jobseeker/registration_mobileapp/" + app.device.platform,
+                    url: app.main_url + "app/jobseeker/registration_mobileapp/android",
                     dataType: 'json',
                     method: 'POST',
                     data: $('#register-form').serialize() + '&device_id=' + app.deviceId + '&pushbot_token=' + app.pushbot_token,
@@ -229,7 +229,7 @@ var app = {
                             app.show_msg("#register-page-content .error-msg");
                         }
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        app.appError("Error: " + err.message);
                         app.endLoading();
                     }
                 }).fail(function(jqXHR, textStatus) {
@@ -318,7 +318,7 @@ var app = {
                         app.show_msg("#login .error-msg");
                     }
                 }catch(err) {
-                    alert("Error: " + err.message);
+                    app.appError("Error: " + err.message);
                     app.endLoading();
                 }
             }).fail(function(jqXHR, textStatus) {
@@ -352,7 +352,7 @@ var app = {
                         $('.forget-success').hide();
                     }
                 }catch(err) {
-                    alert("Error: " + err.message);
+                    app.appError("Error: " + err.message);
                     app.endLoading();
                 }
             }).fail(function(jqXHR, textStatus) {
@@ -383,7 +383,7 @@ var app = {
                             
                         }
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        app.appError("Error: " + err.message);
                         app.endLoading();
                     }
                 }).fail(function(jqXHR, textStatus) {
@@ -391,7 +391,7 @@ var app = {
                     app.appError("Connection lost.");
                 }); 
             }else{
-                alert('Please select position.');
+                my_alert('Please select position.');
             }
             return false;            
         });
@@ -411,7 +411,7 @@ var app = {
                 try{
                     app.endLoading();
                     if(show_alert){
-                        alert('Please fill required fields.');
+                        my_alert('Please fill required fields.');
                     }else{
                         if(json.next_page == 'self-schedule'){
                             //app.send_interview_self_schedule();
@@ -422,7 +422,7 @@ var app = {
                     }
                     $("#experience-form input[name=job_id]").val(json.mongo_id);
                 }catch(err) {
-                    alert("Error: " + err.message);
+                    app.appError("Error: " + err.message);
                     app.endLoading();
                 }
             }).fail(function(jqXHR, textStatus) {
@@ -588,13 +588,13 @@ var app = {
                     }
                 },
                 function(error) {
-                    alert('Error uploading file ' + path + ': ' + error.code);
+                    app.appError('Error uploading file ' + path + ': ' + error.code);
                     //app.endLoading();
                 },
                 options);
 
         }catch(e){
-            alert('Err: ' + e.message);
+            app.appError('Err: ' + e.message);
         }
 
     },
@@ -603,8 +603,42 @@ var app = {
         
         job_type = data.job_type;
         
+        data.childrens = "";
+        
+        if(job_type == "childcare"){
+            ch_html = "";
+            if(typeof(data.childcare_age)!='undefined' && data.childcare_age.length){
+                for(i=0; i<data.childcare_age.length; i++){
+                    ch_data = {age: data.childcare_age[i], gender: data.childcare_gender[i], index:i};
+                    ch_html += $("#experience-childcare-job-item-childrens").render(ch_data);
+                }
+            }else{
+                ch_data = {age: "", gender: "", index:0};
+                ch_html += $("#experience-childcare-job-item-childrens").render(ch_data);                
+            }
+            data.childrens = ch_html;
+        }
+        
         html = $("#experience-" + job_type + "-job-item").render(data);
         $('#experience-jobs-content').html(html);
+        
+        $('#experience-jobs-content .add-child-link').on('click', function(){
+            var cloned = $('div.child_row:first', $(this).parents(".form-section")).clone();
+            $('div.child_row:last', $(this).parents(".form-section")).after(cloned);
+            $(':input', cloned).val('').removeAttr('selected');
+            $('.child_info', cloned).append('<button class="remove-child-link btn red_btn" title="Remove" style="text-decoration:none"><i class="icon icon-minus"></i></button>');
+            $('.remove-child-link', cloned).on('click', function(){
+                section = $(this).parents('.form-section');
+                $(this).parents('.child_row').remove();
+                return false;
+            });
+            return false;
+        });
+        $('#experience-jobs-content .remove-child-link').on('click', function(){
+            section = $(this).parents('.form-section');
+            $(this).parents('.child_row').remove();
+            return false;
+        });
         
         var year_options = "";
         for(year = app.current_date.y; year >= 1960; year--){
@@ -643,6 +677,15 @@ var app = {
             $name = $(this).attr('name');
             $(this).val(data[$name]);
         });
+        
+        if(job_type == "childcare" && typeof(data.childcare_age)!='undefined' && data.childcare_age.length > 0){
+            $('#experience-jobs-content .child_row').each(function(){
+                $index = $(this).attr('data-index');
+                $('select.child_age', $(this)).val(data.childcare_age[$index]);
+                $('select.child_gender', $(this)).val(data.childcare_gender[$index]);
+            });
+        }
+        
     },
     
     load_experience: function(){
@@ -662,7 +705,7 @@ var app = {
             },
             success: function(data){
                 if(data.error==1){
-                    alert("Cannot load experience. Please try again.");
+                    my_alert("Cannot load experience. Please try again.");
                 }else{
                     items = data.jobs;
                     var html = "";
@@ -793,7 +836,7 @@ var app = {
                                     app.open_dialog("Select interview time", "<div class='self-schedule-time-select-dialog'>" + html + "</div>");
                                     $(".self-schedule-time-select-dialog .self-schedule-time-select").on('click', function(){
                                         if($(this).hasClass('disabled')){
-                                            alert("This time is reserved. Select other time.");
+                                            my_alert("This time is reserved. Select other time.");
                                         }else{
                                             $("#self-schedule-form .selected-self-schedule-time").html("Your selected Office Interview day and time:<br />" + day_to_select[$(this).attr('data-date')].title + " " + $(this).html());
                                             $("#self-schedule-form input[name=date]").val(day_to_select[$(this).attr('data-date')].mktime);
@@ -841,7 +884,7 @@ var app = {
 
                 
                 }catch(err) {
-                    alert("Error: " + err.message);
+                    app.appError("Error: " + err.message);
                 }                    
 
                 app.endLoading();
@@ -869,11 +912,11 @@ var app = {
                         if(json.error != 1){
                             app.load_self_schedule();
                         }else{
-                            alert(json.message);
+                            my_alert(json.message);
                         }
                         app.endLoading();
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        app.appError("Error: " + err.message);
                     }                    
                 }
             }).fail(function(jqXHR, textStatus) {
@@ -882,7 +925,7 @@ var app = {
             });        
 
         }else{
-            alert("Please select period.");
+            my_alert("Please select period.");
         }        
     },
     
@@ -904,7 +947,7 @@ var app = {
                     try{
                         app.load_self_schedule();
                     }catch(err) {
-                        alert("Error: " + err.message);
+                        app.appError("Error: " + err.message);
                     }                    
                 }
             }).fail(function(jqXHR, textStatus) {
@@ -1233,7 +1276,7 @@ var app = {
             //app.close_dialog();
             app.open_dialog((anonymous==1 ? "Forward this Job" : "Recommend a Friend"), html);
         }).fail(function() {
-            alert("error");
+            //alert("error");
         });
     },
     
@@ -1267,7 +1310,7 @@ var app = {
                 }
                 
             }catch(err) {
-                alert("Error: " + err.message);
+                app.appError("Error: " + err.message);
             }
         }).fail(function(jqXHR, textStatus) {
                 //console.log("error"); 

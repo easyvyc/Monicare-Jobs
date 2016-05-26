@@ -1,0 +1,875 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+html {
+    height:100%;
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:13px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+a {
+    color: #a7396a;
+}
+
+
+/* Portrait layout (default) */
+.app {
+    position:relative;
+    text-align:center;
+    padding-top:75px;
+    padding-bottom:10px;
+    z-index:1;
+    display:none;
+}
+
+#loading {
+    position:fixed;
+    text-align:center;
+    padding:20% 0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.7);
+    z-index:100;
+}
+
+#page_header {
+    top:0px !important;
+    left:0px !important;
+    position:fixed;
+    width:100%;
+    height:60px;
+    background:#FFF;
+    box-shadow:0 0 10px #000;
+    z-index:2;
+}
+#page_header .logo {
+    position:absolute;
+    top:5px;
+    width:100%;
+    text-align:center;
+}
+#top_navigation {
+    position:relative;
+    top:0px;
+    padding-top:10px;
+    left:10px;
+    z-index:100;
+}
+#top_navigation ul {
+    text-align:left;
+    position:absolute;
+    display:none;
+    padding:0px;
+    margin:0px;
+    top:100%;
+    list-style:none;
+    background:#EFECEF;
+    box-shadow:0 10px 10px #333;
+}
+#top_navigation ul a {
+    white-space:nowrap;
+    border-bottom: 1px solid #e7e3e8;
+    color: #642d6e;
+    display: block;
+    font-family: Georgia;
+    font-size: 20px;
+    padding: 15px;
+    text-decoration: none;
+    text-shadow:1.5px 1.5px 0 #FFF;
+    text-transform:uppercase;
+}
+#top_navigation ul a i {
+    display:inline-block;
+    width:50px;
+    text-align:center;
+}
+#top_navigation ul a span {
+    display:inline-block;
+    font-weight:bold;
+    vertical-align:top;
+    margin-top:10px;
+}
+#login_navigation {
+    position:absolute;
+    right:10px;
+    top:10px;
+    z-index:101;
+}
+
+
+/* iphone reik nuleist viska per 20px del laikrodzio */
+body.iphone .app {
+    padding-top:95px;
+}
+body.iphone #page_header {
+    height:80px;
+}
+body.iphone #page_header .logo {
+    top:25px;
+}
+body.iphone #top_navigation {
+    top:20px;
+}
+body.iphone #login_navigation {
+    top:30px;
+}
+/* end iphone */
+
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        
+    }
+}
+
+h1 {
+    color: #642d6e;
+    font-family: Georgia;
+    font-weight: bold;    
+    font-size:16px;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    margin:0px 15px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+.domestic-job-item {
+    padding:7px;
+    margin:5px 0;
+    box-shadow:0 0 2px #CCC;
+}
+.domestic-job-item {
+    text-align:left;
+    border: 1px solid #cdc3cd;
+    margin: 10px 0;
+    padding:0px;
+}
+.domestic-job-item h4 {
+    background-image: linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(239,236,239)),
+            color-stop(1, rgb(249,249,249))
+    );
+    
+    color: #826982;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+    min-height: 15px;
+    padding: 5px;
+    cursor:pointer;
+}
+.domestic-job-item .icon-chevron-up {
+    display:none;
+}
+.domestic-job-item .text {
+    padding: 5px;
+}
+.domestic-job-item .job-content {
+    display:none;
+}
+.domestic-job-item .btns {
+    padding-bottom:10px;
+}
+.domestic-job-item h4 {
+    position:relative;
+    padding-right:25px;
+    padding-left:25px;
+}
+.domestic-job-item h4 .checked {
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+.domestic-job-item h4 .slide {
+    position:absolute;
+    left:5px;
+    top:40%;
+}
+.domestic-job-item .interested-btn {
+    display:block;
+}
+.domestic-job-item.interested-job .interested-btn {
+    display:none;
+}
+.domestic-job-item .review-btn {
+    display:none;
+}
+.domestic-job-item.interested-job .review-btn {
+    display:block;
+}
+.domestic-job-item h4 .checked {
+    display:none;
+}
+.domestic-job-item.interested-job h4 {
+    background:#826982;
+    color:#FFF;
+}
+.domestic-job-item.interested-job h4 .slide {
+    color:#FFF;
+}
+.domestic-job-item.interested-job h4 .checked {
+    /*display:block;*/
+}
+
+
+
+
+#domestic-jobs-content, #interested-content, #one_job_content {
+    width:94%;
+    margin:0 auto;
+}
+
+.interest1 {
+    
+    display:inline-block;
+    
+    background-color: #816881;
+    background-repeat: repeat-x;
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3F2C57), to(#816881));
+    /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #816881, #3F2C57);
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top, #816881, #3F2C57);
+    /* IE 10 */
+    background: -ms-linear-gradient(top, #816881, #3F2C57);
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #816881, #3F2C57);
+
+    color:#FFF;
+    text-shadow:2px 2px 2px #3E3144;
+    box-shadow:3px 3px 3px #7D6E89;
+
+    border-radius:5px !important;
+
+    width:170px !important;
+    height:auto !important;
+    padding:10px 0 !important;
+    
+    border:none;
+    
+}
+.interest1:hover {
+    background: #816881;
+    color:#FFF !important;
+}
+.interest1:active {
+    background: #816881;
+    color:#FFF !important;
+}
+.reviewing {
+    background:#FFF;
+    color: #826982;
+    text-shadow:1px 1px 1px #3E3144;
+    box-shadow:3px 3px 3px #7D6E89;
+
+    border-radius:5px !important;
+
+    width:170px !important;
+    height:auto !important;
+    padding:10px 0 !important;
+    
+    border:none;
+    
+    display:inline-block;
+    
+}
+.interest2 {
+
+    background-color: #C85183;
+    background-repeat: repeat-x;
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#802B52), to(#C85183));
+    /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #C85183, #802B52);
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top, #C85183, #802B52);
+    /* IE 10 */
+    background: -ms-linear-gradient(top, #C85183, #802B52);
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #C85183, #802B52);
+
+    color:#FFF;
+    text-shadow:2px 2px 2px #692946;
+    box-shadow:5px 5px 5px #B5B4B4;
+
+    border-radius:5px !important;
+
+    display:inline-block;
+    
+    width:180px !important;
+    height:auto !important;
+    padding:10px 0 !important;
+    
+    border:none;
+}
+.interest2:hover {
+    background: #C85183;
+    color:#FFF !important;
+}
+.interest2:active {
+    background: #C85183;
+    color:#FFF !important;
+}
+
+.bbtn {
+    width: 49%; 
+    margin: 0px; 
+    padding: 0px; 
+    float: left; 
+    text-align: center;
+}
+
+.clear {
+    clear:both;
+}
+
+
+
+.app {
+    
+}
+
+
+.big_btn {
+    background-image: linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(62,44,86)),
+            color-stop(1, rgb(130,105,130))
+    );
+    border: medium none;
+    border-radius: 5px;
+    box-shadow: 0 5px 8px #b3b3b3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: bold;
+    height: auto;
+    padding: 10px 15px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #2f2439;
+    border-radius:5px;
+}
+.notice-msg {
+    background-color: #def2de;
+    border:1px solid #d3eed7;
+    color: #4ab948;
+    border-radius: 5px;
+    padding: 5px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
+}
+input.err {
+    background-color: #f2dede;
+}
+.error-msg {
+    background-color: #f2dede;
+    border:1px solid #eed3d7;
+    color: #b94a48;
+    border-radius: 5px;
+    padding: 5px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
+}
+.error {
+    color:#ee3333;
+}
+.tipsy {
+    font-size:11px !important;
+}
+
+
+.m_btn {
+    background-image: linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(239,236,239)),
+            color-stop(1, rgb(249,249,249))
+    );
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ddcee0;
+    color:#642d6e;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    outline: medium none;
+    text-align: left;
+    text-decoration: none !important;
+    text-shadow: 1px 1px 0 #ffffff;
+    padding:5px 10px;
+}
+.m_btn.logged {
+    background-image: linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(62,44,86)),
+            color-stop(1, rgb(130,105,130))
+    );
+    color:#FFF;
+    text-shadow:1px 1px 0 #3e284b;
+}
+
+.grey_btn {
+    background:#666;
+    background: -webkit-linear-gradient(#666, #555); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#666, #555); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#666, #555); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#666, #555); /* Standard syntax */        
+}
+.green_btn {
+    background:#22B14C;
+    background: -webkit-linear-gradient(#22B14C, #1E903F); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#22B14C, #1E903F); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#22B14C, #1E903F); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#22B14C, #1E903F); /* Standard syntax */       
+}
+
+
+#map {
+    width:100%;
+    height:100%;
+    padding:0px;
+}
+#map-canvas {
+    width:100%;
+    height:100%;
+}
+
+.table {
+    display:table;
+}
+.info-row {
+    display:table-row;
+}
+.info-row .cell {
+    display:table-cell;
+    padding:5px;
+}
+
+#user .table {
+    margin:0 auto;
+    text-align:left;
+}
+#user .table .t {
+    font-weight:bold;
+    width:25%;
+}
+#user .form-section {
+    width:80%;
+}
+#user .edit {
+    position:absolute;
+    top:15px;
+    right:15px;
+}
+#user .edit a {
+    text-decoration:none;
+}
+#user-interview-video {
+    width:80%;
+    max-height:300px;
+}
+#upload-interview-video {
+    
+}
+#user-interview-video-content {
+    background:#999;
+    padding:0px;
+    margin-bottom:10px;
+}
+#user-interview-video-content video {
+    margin:0px;
+    padding:0px;
+    max-height:300px;
+    overflow:hidden;
+}
+
+#exp-btns .link_btn {
+    margin:5px;
+}
+
+#contacts-content {
+    text-align:left;
+    width:90%;
+    margin:0 auto;
+}
+
+.tooltip {
+    height:20px;
+}
+
+
+#one_job {
+    text-align:left;
+    margin:0 auto;    
+}
+#one_job .domestic-job-item {
+    border:none;
+    text-shadow:none;
+}
+
+
+.first-cap:first-letter {
+    text-transform:uppercase;
+}
+
+span.checkbox {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.checkbox span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/checkbox.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.checkbox span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.checkbox input[type="checkbox"] + span {
+	visibility: visible;
+}
+span.checkbox input[type="checkbox"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input[type="checkbox"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/checkbox_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.checkbox input[type="checkbox"].err + span {
+    background: url('../img/forms/checkbox_err.png') center center no-repeat;
+    background-size: contain;
+}
+span.checkbox input[type="checkbox"]:disabled {
+	cursor:default;
+}
+span.checkbox input[type="checkbox"]:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_disabled.png') center center no-repeat;*/
+}
+span.checkbox input[type="checkbox"]:checked:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_checked_disabled.png') center center no-repeat;*/
+}
+span.radio {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.radio span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/radio.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.radio span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.radio input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.radio input[type="radio"] + span {
+	visibility: visible;
+}
+span.radio input[type="radio"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.radio input[type="radio"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/radio_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.radio input[type="radio"].err + span {
+    background: url('../img/forms/radio_err.png') center center no-repeat;
+    background-size: contain;
+}
+span.radio input[type="radio"]:disabled {
+	cursor:default !important;
+}	
+span.radio input[type="radio"]:disabled + span {
+	opacity:0.7;
+}
+span.radio input[type="radio"]:checked:disabled + span {
+	opacity:0.7;
+}
+
+#contacts-content img.big {
+    width:140px;
+    height:140px;
+    margin-right:10px;
+}
+
+
+
+span.checkbox {
+	position:relative;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	vertical-align:middle;
+}
+span.checkbox span {
+	position: absolute;
+	right: 0;
+	width: 23px;
+	height: 23px;
+	line-height: 15px;
+	padding: 2px;
+	color: #FFF;
+	text-align: center;
+	background: url('../img/forms/checkbox.png') center center no-repeat;
+	background-size: contain;
+	z-index:1;
+}
+span.checkbox span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+	z-index:2;
+}
+span.checkbox input[type="checkbox"] + span {
+	visibility: visible;
+}
+span.checkbox input[type="checkbox"] + span:after {
+	content: ""; /*if CSS are disbled span elements are not displayed*/
+}
+span.checkbox input[type="checkbox"]:checked + span {
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+	background: url('../img/forms/checkbox_checked.png') center center no-repeat;
+	background-size: contain;
+}
+span.checkbox input[type="checkbox"]:disabled {
+	cursor:default;
+}
+span.checkbox input[type="checkbox"]:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_disabled.png') center center no-repeat;*/
+}
+span.checkbox input[type="checkbox"]:checked:disabled + span {
+	opacity:0.7;
+	/*background: url('/images/checkbox_checked_disabled.png') center center no-repeat;*/
+}
+
+select {
+    font-size: 100%;
+    padding: 4px;	
+	padding-right:27px;
+	-webkit-appearance: none;
+	border: 2px inset;
+	background-image:url('../img/forms/select.png');
+	background-position:right center;
+	background-repeat: no-repeat;
+	background-color:#FFFFFF;
+}
+select[disabled], input[disabled], textarea[disabled] {
+    background-color: #dddddd;
+}
+
+.link_btn {
+    background-image: linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(239,236,239) 0%, rgb(249,249,249) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(239,236,239)),
+            color-stop(1, rgb(249,249,249))
+    );
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ddcee0;
+    color:#642d6e;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    outline: medium none;
+    text-align: left;
+    text-decoration: none !important;
+    text-shadow: 1px 1px 0 #ffffff;
+    padding:10px 20px;
+}
+
+.direct_phone {
+    display:block;
+}
+.not-logged .direct_phone {
+    display:none;
+}
+
+
+.form-section {
+    width:90%;
+    margin:10px auto;
+    padding:10px;
+    background:#F2F0F2;
+    text-align:left;
+}
+.form-section.table .cell {
+    vertical-align:middle;
+}
+.position-item, .chk_label {
+    display:block;
+    margin:10px 0;
+}
+
+.rel {
+    position:relative;
+}
+.hide {
+    display:none;
+}
+
+
+@media only screen and (max-width: 380px) {
+    
+    .interest1, .interest2 {
+        
+    }
+    .bbtn {
+        width:100%;
+        float:none;
+        margin:7px 0;
+    }
+    
+}

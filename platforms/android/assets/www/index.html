@@ -487,6 +487,62 @@
         
                 <h1 class="title">Experience</h1>
 
+                <script id="experience-childcare-job-item-childrens" type="text/x-jsrender">
+                    <div style="margin-bottom:5px" class="child_row" data-index="{{:index}}">
+                        <div class="child_info">
+                        <b style="font-weight:normal;" data-for="childcare_age_row" for="childcare_age_row">Child's Age:</b>
+                        <select data-index="{{:index}}" class="child_age" rel="childcare_age" name="childcare_age[]" required="true">
+                            <option value="">- -</option>
+                            <option value="Newborn was born later">Newborn was born later</option>
+                            <option value="1 week old">1 week old</option>
+                            <option value="1 month old">1 month old</option>
+                            <option value="2 month old">2 month old</option>
+                            <option value="3 month old">3 month old</option>
+                            <option value="4 month old">4 month old</option>
+                            <option value="5 month old">5 month old</option>
+                            <option value="6 month old">6 month old</option>
+                            <option value="7 month old">7 month old</option>
+                            <option value="8 month old">8 month old</option>
+                            <option value="9 month old">9 month old</option>
+                            <option value="10 month old">10 month old</option>
+                            <option value="11 month old">11 month old</option>
+                            <option value="1 year old">1 year old</option>
+                            <option value="1.5 year old">1.5 year old</option>
+                            <option value="2 year old">2 year old</option>
+                            <option value="2.5 year old">2.5 year old</option>
+                            <option value="3 year old">3 year old</option>
+                            <option value="3.5 year old">3.5 year old</option>
+                            <option value="4 year old">4 year old</option>
+                            <option value="5 year old">5 year old</option>
+                            <option value="6 year old">6 year old</option>
+                            <option value="7 year old">7 year old</option>
+                            <option value="8 year old">8 year old</option>
+                            <option value="9 year old">9 year old</option>
+                            <option value="10 year old">10 year old</option>
+                            <option value="11 year old">11 year old</option>
+                            <option value="12 year old">12 year old</option>
+                            <option value="13 year old">13 year old</option>
+                            <option value="14+ year old">14+ year old</option>
+                        </select>
+                        <b style="font-weight:normal" data-for="childcare_gender_row" for="childcare_gender_row">Child's Gender:</b>
+                        <select class="child_gender" rel="childcare_age" name="childcare_gender[]" required="true">
+                            <option value="">- -</option>
+                            <option value="Girl">Girl</option>
+                            <option value="Boy">Boy</option>
+                        </select>
+
+                        {{if index!=0}}
+                        <button class="remove-child-link btn red_btn" title="Remove" style="text-decoration:none"><i class="icon icon-minus"></i></button>
+                        {{/if}}
+
+                        </div>
+                        <div style="display:none" class="newborn">
+                            <b class="w230" style="font-weight:normal;" data-for="newborn_date_row" for="newborn_date_row">In what year the newborn was born?:</b>
+                            <input type="text" value="" style="width:50px" rel="childcare_age" name="newborn_date[]" class="year"> <span>(e.g. 2003)</span>
+                        </div>
+                    </div>
+                </script>
+                
                 <script id="experience-childcare-job-item" type="text/x-jsrender">
                     <input type="hidden" name="job_type" value="childcare" />
                     <input type="hidden" name="job_id" value="{{:job_id}}" />
@@ -507,8 +563,14 @@
                             <input type="text" name="childcare_parent1_last_name" class="first-cap" value="{{:childcare_parent1_last_name}}" required="true" /><br/>
 
                             <b class="w120" data-for="childcare_parent1_phone1">Phone:<em>*</em></b>
-                            <input type="tel" name="childcare_parent1_phone1" value="{{:childcare_parent1_phone1}}" class="phone" required="true" /><br/>
-
+                            <input type="tel" name="childcare_parent1_phone1" value="{{:childcare_parent1_phone1}}" class="phone" required="true" />
+                            <select name="childcare_parent1_phone1_type" class="cell_type" required="true">
+                                <option value="" >- -</option>
+                                <option value="cell"  >cell</option>
+                                <option value="work"  >work</option>
+                                <option value="home"  >home</option>
+                            </select><br />
+                            
                             <b class="w120" data-for="childcare_parent_email">E-mail:<em>*</em></b>
                             <input type="email" name="childcare_parent_email" value="{{:childcare_parent_email}}" class="email" required="true" /><br/>
 
@@ -516,7 +578,7 @@
                             <input type="text" name="childcare_city" class="first-cap" value="{{:childcare_city}}" required="true" /><br/>
 
                             <b class="w120" data-for="childcare_state">State:<em>*</em></b>
-                            <select name="childcare_state" class="sw160" required="true">
+                            <select name="childcare_state" class="sw180" required="true">
                                 <option value="" selected >- -</option>
                                 <option value="AL"  >Alabama</option>
                                 <option value="AK"  >Alaska</option>
@@ -571,6 +633,9 @@
                                 <option value="WY"  >Wyoming</option>
                             </select><br/>
 
+                            <b class="w120" data-for="childcare_zipcode">Zip Code<em>*</em></b>
+                            <input type="text" name="childcare_zipcode" class="zipcode" value="{{:childcare_zipcode}}" required="true" /><br/>
+
                             <hr/>
 
                             <b data-for="childcare_agree_email_to_reference">Reference Verification by MoniCare<em>*</em></b><br />
@@ -579,14 +644,14 @@
                             </span>
                             <br />
                             
-                            <b>Contact: {{:childcare_agree_email_to_reference}}</b>
+                            <b class="w120">Contact: </b>
                             <label><span class="radio"><input type="radio" required="true" name="childcare_agree_email_to_reference" value="Yes" {{if childcare_agree_email_to_reference == 'Yes'}}checked{{/if}} /><span></span></span>Yes</label>
                             <label><span class="radio"><input type="radio" required="true" name="childcare_agree_email_to_reference" value="No" {{if childcare_agree_email_to_reference == 'No'}}checked{{/if}} /><span></span></span>No</label>
 
                             <hr />
 
                             <b class="w120" data-for="childcare_job_title">Job Title:<em>*</em></b>
-                            <select name="childcare_job_title" class="sw160" required="true">
+                            <select name="childcare_job_title" class="sw180" required="true">
                                     <option value="" >- -</option>
                                     <option value="Nanny">Nanny</option>
                                     <option value="Nanny-Household Manager">Nanny-Household Manager</option>
@@ -601,6 +666,10 @@
                                     <option value="Baby Nurse">Baby Nurse</option>
                                     <option value="Other">Other</option>
                             </select><br/>
+
+                            <b class="w120" data-for="childcare_position_type">Position was: <em>*</em></b>
+                            <label><span class="radio"><input type="radio" required="true" name="childcare_position_type" value="Come-and-Go" {{if childcare_position_type == 'Come-and-Go'}}checked{{/if}} /><span></span></span>Come-and-Go</label>
+                            <label><span class="radio"><input type="radio" required="true" name="childcare_position_type" value="Live-in" {{if childcare_position_type == 'Live-in'}}checked{{/if}} /><span></span></span>Live-in</label>
 
 
                             <hr/>
@@ -669,6 +738,43 @@
                                 <b style="font-weight:normal">I am still working here</b>
                             </label>
 
+                            <hr />
+                            
+                            <b class="" data-for="childcare_duties_extra">Children you took care of: <em>*</em></b>
+                            {{:childrens}}
+                            <div style="margin-top: 7px;">
+                                <button class="add-child-link btn green_btn"><i class="icon icon-plus"></i> Add Another Child</button>
+                            </div>                            
+                            
+                            <hr />
+                            
+                            <b class="" data-for="childcare_duties_extra">Describe your duties in detail: <em>*</em></b>
+                            <textarea class="" name="childcare_duties_extra" required="true">{{:childcare_duties_extra}}</textarea><br />
+
+                            <b data-for="childcare_end_reason">Why did this employment end?: <em>*</em></b><br />
+                            <select name="childcare_end_reason" class="end_reason" required="true">
+                                <option value="">- -</option>
+                                <option value="Children grew up and they no longer needed a nanny">Children grew up and they no longer needed a nanny</option>
+                                <option value="Children went to day care">Children went to day care</option>
+                                <option value="Children went to school">Children went to school</option>
+                                <option value="It is my current job, but it is ending soon">It is my current job, but it is ending soon</option>
+                                <option value="It is my current job, I need to give 2-week notice">It is my current job, I need to give 2-week notice</option>
+                                <option value="It is my part-time job I want to keep, I need another part-time job">It is my part-time job I want to keep, I need another part-time job</option>
+                                <option value="I still work for this family as needed">I still work for this family as needed</option>
+                                <option value="It was a temporary position only">It was a temporary position only</option>
+                                <option value="Employer's needs have changed">Employer's needs have changed</option>
+                                <option value="Employer had financial problems">Employer had financial problems</option>
+                                <option value="I decided to look for another position to meet my needs">I decided to look for another position to meet my needs</option>
+                                <option value="I moved and the drive became too long">I moved and the drive became too long</option>
+                                <option value="Employer moved and the drive became too long">Employer moved and the drive became too long</option>
+                                <option value="Employer moved out of state">Employer moved out of state</option>
+                                <option value="Employer replaced me with their family member">Employer replaced me with their family member</option>
+                                <option value="I had to take care of my sick family member/friend">I had to take care of my sick family member/friend</option>
+                                <option value="I was dismissed with no reason given">I was dismissed with no reason given</option>
+                                <option value="I was dismissed due to a certain reason">I was dismissed due to a certain reason</option>
+                                <option value="- Type your reason here -">- Type your reason here -</option>
+                            </select>                            
+
                         </div>                        
 
                     </div>
@@ -695,7 +801,13 @@
                             <input type="text" name="domestic_parent1_last_name" class="first-cap" value="{{:domestic_parent1_last_name}}" required="true" /><br/>
 
                             <b class="w120" data-for="domestic_parent1_phone1">Phone:<em>*</em></b>
-                            <input type="tel" name="domestic_parent1_phone1" value="{{:domestic_parent1_phone1}}" class="phone" required="true" /><br/>
+                            <input type="tel" name="domestic_parent1_phone1" value="{{:domestic_parent1_phone1}}" class="phone" required="true" />
+                            <select name="domestic_parent1_phone1_type" class="cell_type" required="true">
+                                <option value="" >- -</option>
+                                <option value="cell"  >cell</option>
+                                <option value="work"  >work</option>
+                                <option value="home"  >home</option>
+                            </select><br />
 
                             <b class="w120" data-for="domestic_parent_email">E-mail:<em>*</em></b>
                             <input type="email" name="domestic_parent_email" value="{{:domestic_parent_email}}" class="email" required="true" /><br/>
@@ -704,7 +816,7 @@
                             <input type="text" name="domestic_city" class="first-cap" value="{{:domestic_city}}" required="true" /><br/>
 
                             <b class="w120" data-for="domestic_state">State:<em>*</em></b>
-                            <select name="domestic_state" class="sw160" required="true">
+                            <select name="domestic_state" class="sw180" required="true">
                                 <option value="" selected >- -</option>
                                 <option value="AL"  >Alabama</option>
                                 <option value="AK"  >Alaska</option>
@@ -758,6 +870,9 @@
                                 <option value="WI"  >Wisconsin</option>
                                 <option value="WY"  >Wyoming</option>
                             </select><br/>
+                            
+                            <b class="w120" data-for="domestic_zipcode">Zip Code<em>*</em></b>
+                            <input type="text" name="domestic_zipcode" class="zipcode" value="{{:domestic_zipcode}}" required="true" /><br/>
 
                             <hr/>
 
@@ -767,7 +882,7 @@
                             </span>
                             <br />
                             
-                            <b>Contact: </b>
+                            <b class="w120">Contact: </b>
                             <label><span class="radio"><input type="radio" required="true" name="domestic_agree_email_to_reference" value="Yes" {{if domestic_agree_email_to_reference=='Yes'}}checked{{/if}} /><span></span></span>Yes</label>
                             <label><span class="radio"><input type="radio" required="true" name="domestic_agree_email_to_reference" value="No" {{if domestic_agree_email_to_reference=='No'}}checked{{/if}} /><span></span></span>No</label>
 
@@ -777,6 +892,9 @@
                             <b class="w120" data-for="domestic_job_title">Job Title:<em>*</em></b>
                             <input type="text" name="domestic_job_title" value="{{:domestic_job_title}}" required="true" /><br/>
 
+                            <b class="w120" data-for="domestic_position_type">Position was: <em>*</em></b>
+                            <label><span class="radio"><input type="radio" required="true" name="domestic_position_type" value="Come-and-Go" {{if domestic_position_type == 'Come-and-Go'}}checked{{/if}} /><span></span></span>Come-and-Go</label>
+                            <label><span class="radio"><input type="radio" required="true" name="domestic_position_type" value="Live-in" {{if domestic_position_type == 'Live-in'}}checked{{/if}} /><span></span></span>Live-in</label>
 
                             <hr/>
 
@@ -843,6 +961,31 @@
                                 <span class="checkbox"><input type="checkbox" name="still_working" {{if still_working}}checked{{/if}} value="1" style="vertical-align:middle"><span></span></span>
                                 <b style="font-weight:normal">I am still working here</b>
                             </label>
+
+                            <hr />
+                            
+                            <b class="" data-for="domestic_duties_extra">Describe your duties in detail: <em>*</em></b>
+                            <textarea class="" name="domestic_duties_extra" required="true">{{:domestic_duties_extra}}</textarea><br />
+
+                            <b data-for="domestic_end_reason">Why did this employment end?: <em>*</em></b><br />
+                            <select name="domestic_end_reason" class="end_reason" required="true">
+                                <option value="">- -</option>
+                                <option value="It is my current job, but it is ending soon">It is my current job, but it is ending soon</option>
+                                <option value="It is my current job, I need to give 2-week notice">It is my current job, I need to give 2-week notice</option>
+                                <option value="I still work for this family as needed">I still work for this family as needed</option>
+                                <option value="It is my part-time job I want to keep, I need another part-time job">It is my part-time job I want to keep, I need another part-time job</option>
+                                <option value="It was a temporary position only">It was a temporary position only</option>
+                                <option value="My service was no longer needed">My service was no longer needed</option>
+                                <option value="Employer's needs have changed">Employer's needs have changed</option>
+                                <option value="Employer had financial problems">Employer had financial problems</option>
+                                <option value="I decided to look for another position to meet my needs">I decided to look for another position to meet my needs</option>
+                                <option value="I moved and the drive became too long">I moved and the drive became too long</option>
+                                <option value="Employer moved and the drive became too long">Employer moved and the drive became too long</option>
+                                <option value="Employer moved out of state">Employer moved out of state</option>
+                                <option value="I was dismissed with no reason given">I was dismissed with no reason given</option>
+                                <option value="I was dismissed due to a certain reason">I was dismissed due to a certain reason</option>
+                                <option value="- Type your reason here -">- Type your reason here -</option>
+                            </select>                         
 
                         </div>                        
 

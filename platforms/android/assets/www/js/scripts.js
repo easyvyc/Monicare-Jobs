@@ -6,7 +6,7 @@ function onGetPictureSuccess(mediaFiles) {
         app.uploadFile();
         //$('#upload-interview-video').removeClass('hide');
     }else{
-        alert("Video file is too large.");
+        my_alert("Video file is too large.");
     }
 }
 
@@ -26,6 +26,10 @@ function onGetPictureFail(message) {
 function open_external_url(url){
     if(confirm("This action will open full version of MoniCare application in a browser. Do you want to leave the Jobs App now?"))
         navigator.app.loadUrl(url, { openExternal: true });
+}
+
+function my_alert(message){
+    alert(message);
 }
 
 function showDialog(title, html){

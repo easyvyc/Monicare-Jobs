@@ -426,7 +426,7 @@ h1 {
     padding: 5px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
 }
-input.err {
+input.err, textarea.err, select.err {
     background-color: #f2dede;
 }
 .error-msg {
@@ -496,6 +496,7 @@ input.err {
     background: -o-linear-gradient(#666, #555); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#666, #555); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#666, #555); /* Standard syntax */        
+    color:#FFF;
 }
 .green_btn {
     background:#22B14C;
@@ -503,6 +504,15 @@ input.err {
     background: -o-linear-gradient(#22B14C, #1E903F); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#22B14C, #1E903F); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#22B14C, #1E903F); /* Standard syntax */       
+    color:#FFF;
+}
+.red_btn {
+    background:#DD1D42;
+    background: -webkit-linear-gradient(#DD1D42, #A3112D); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#DD1D42, #A3112D); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#DD1D42, #A3112D); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#DD1D42, #A3112D); /* Standard syntax */       
+    color:#FFF;
 }
 
 
@@ -860,6 +870,10 @@ select[disabled], input[disabled], textarea[disabled] {
     display:none;
 }
 
+.btn {
+    border:none;
+    border-radius:3px;
+}
 
 @media only screen and (max-width: 380px) {
     

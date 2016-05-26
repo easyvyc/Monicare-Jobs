@@ -1,0 +1,119 @@
+.overlay {
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.5);
+    z-index:50;
+    display:none;
+}
+
+.dialog {
+    display:none;
+    position:fixed;
+    width:80%;
+    left:10%;
+    top:75px;
+    min-height:75px;
+    max-height:100%;
+    overflow:hidden;
+    background:#FFF;
+    box-shadow:0 0 10px #333;
+    z-index:51;
+}
+.dialog .ui-header {
+    position:relative;
+}
+.dialog .ui-title {
+    background:#AAA;
+    text-shadow:2px 2px 0 #666;
+    padding:7px;
+    padding-right:25px;
+    color:#FFF;
+    margin:0px;
+}
+#close-dialog {
+    display:block;
+    position:absolute;
+    right:7px;
+    top:3px;
+    cursor:pointer;
+    color:#FFF;
+    text-shadow:2px 2px 0 #666;
+}
+.dialog .ui-content {
+    padding:7px;
+    overflow:scroll;
+}
+
+#dialogPage .client_app .form {
+    margin:7px auto;
+    padding:0px;
+    width:auto;
+}
+#dialogPage .client_app .form .f {
+    margin:2px 0;
+}
+#dialogPage .client_app .form label {
+    display:inline-block;
+    width:40%;
+    line-height:14px;
+}
+#dialogPage .client_app h2.title {
+    margin:10px 0;
+}
+#dialogPage .client_app .form .f input[type="text"], 
+#dialogPage .client_app .form .f input[type="number"],
+#dialogPage .client_app .form .f input[type="password"], 
+#dialogPage .client_app .form .f input[type="email"],
+#dialogPage #interest_dialog_form .txt {
+    width:55%;
+    padding:3px;
+}
+#dialogPage #interest_dialog_form .txt {
+    font-size:14px !important;
+    padding:3px !important;
+}
+#dialogPage .client_app .submit {
+    margin-top:7px;
+}
+#dialogPage .client_app .submit input[type="submit"],
+#dialogPage .sbmt, #dialogPage .button {
+    background-image: linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(62,44,86) 0%, rgb(130,105,130) 100%);
+
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(62,44,86)),
+            color-stop(1, rgb(130,105,130))
+    );
+    border: medium none;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px #b3b3b3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: bold;
+    height: auto;
+    padding: 10px 15px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #2f2439;
+    border-radius:5px;    
+}
+
+#dialogPage #interest_dialog_form .txt {
+    padding: 7px;
+    width: 130px;    
+}
+
+#recommend em.error {
+    display:none !important;
+}

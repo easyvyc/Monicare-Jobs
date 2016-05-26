@@ -1,0 +1,49 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        }
+    },
+    "dependent_plugins": {
+        "android.support.v4": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "com.pushbots.push": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        },
+        "org.apache.cordova.camera": {
+            "PACKAGE_NAME": "MoniCare Jobs"
+        }
+    }
+}

@@ -1,0 +1,96 @@
+.login_app {
+    width: 90%;
+    margin:0 auto;
+}
+.login_app p.top_txt {
+    font-size: 12px;
+}
+.login_app .form .radio {
+    float: left;
+    margin-right: 5px;
+}
+.login_app h1.title {
+    text-align: center;
+}
+.login_app .form {
+    min-height: 50px;
+    overflow: hidden;
+    padding: 15px 25px !important;
+    position: relative;
+    width: auto;
+    background: #f2f0f2 none repeat scroll 0 0;
+    border: 1px solid #cdc3cd;    
+}
+
+.login_app .form .f {
+    display: block;
+    margin:5px 0;
+}
+.login_app .form .f input {
+    float: none;
+    font-size: 15px;
+    padding: 3%;
+    width: 94%;
+}
+.login_app .title2 {
+    margin: 15px 0;
+    text-align: left;
+}
+.login_app .form .big_btn {
+    float: right;
+}
+.login_app .form em {
+    font-size: 11px;
+    left: auto;
+    right: 0;
+    top: -1px;
+    width: auto;
+}
+.login_bot_register a {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+
+.login_app .error-msg {
+    display:none;
+}
+
+.login_app .forgot {
+    padding-top:12px;
+    padding-bottom:12px;
+}
+
+.login-success {
+    display:none;
+}
+
+
+
+.user-logged #login-btn {
+    display:none;
+}
+
+.not-logged #logged_user-btn {
+    display:none;
+}
+.not-logged #top_navigation .interested {
+    display:none;
+}
+.not-logged #user .table {
+    display:none;
+}
+
+
+.not-logged .show-when-not-logged {
+    display:block;
+}
+.not-logged .show-when-logged {
+    display:none;
+}
+.user-logged .show-when-not-logged {
+    display:none;
+}
+.user-logged .show-when-logged {
+    display:block;
+}
