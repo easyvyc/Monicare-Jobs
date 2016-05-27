@@ -795,10 +795,14 @@ var app = {
                             html = $("#self-schedule-manage-assistant").render(json);
                             $("#self-schedule-form .manage-assistant").html(html);
 
+                            var first_day_to_select = null;
                             for(var i=0; i < json.days_to_select.length; i++){
                                 if(json.days_to_select[i].hours_easy.length == 0 || json.days_to_select[i].not_working_day == 1){
                                     date_eliminate[date_eliminate.length] = json.days_to_select[i].date;
                                 }else{
+                                    if(first_day_to_select == null){
+                                        first_day_to_select = json.days_to_select[i].date;
+                                    }
                                     day_to_select[json.days_to_select[i].date] = json.days_to_select[i];
                                 }
                             }
@@ -809,6 +813,7 @@ var app = {
                                 maxDate: +14,
                                 firstDay: 1,
                                 dateFormat: "yy-mm-dd",
+                                defaultDate: (first_day_to_select == null ? +1 : first_day_to_select),
                                 beforeShowDay: function(date){
                                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                                     return [$.inArray(string, date_eliminate) == -1];
