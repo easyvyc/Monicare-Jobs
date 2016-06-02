@@ -177,7 +177,8 @@ var app = {
             }).done(function() {
                         
                 app.endLoading();
-                        
+                
+                $('body').removeClass('oncall-user');
                 $('body').removeClass('user-logged');
                 $('body').addClass('not-logged');
 
@@ -490,6 +491,13 @@ var app = {
 
             $('body').removeClass('not-logged');
             $('body').addClass('user-logged');
+            
+            if(json.user_data.is_oncall){
+                $('body').addClass('oncall-user');
+                if(typeof(PushbotsPlugin) != 'undefined'){
+                    PushbotsPlugin.tag("oncall");
+                }
+            }
 
             app.loadUserPageContent(json.user_data);
 
@@ -527,6 +535,8 @@ var app = {
             app.load_self_schedule();
         }else if(pg == '#user'){
             app.load_page_user();
+        }else if(pg == '#oncall'){
+            app.load_page_oncall();
         }else if(pg == '#exit'){
             navigator.app.exitApp();
         }else{
@@ -1160,6 +1170,26 @@ var app = {
             $("#contacts").show("slide", { direction: "left" }, 1000);
             $('#top_navigation ul').hide();
         }
+    },
+    
+    load_page_oncall: function(){
+        $.ajax({
+            url: app.main_url + "app/jobseeker/on_call_jobs_mobileapp",
+            cache: false,
+            dataType:"html",
+            beforeSend:function(){
+                app.startLoading();
+            },
+            success: function(html){
+                $("#oncall_page .content").html(html);
+                app.endLoading();
+                $("#oncall_page").show("slide", { direction: "left" }, 1000);
+                $('#top_navigation ul').hide();
+            }
+        }).fail(function(jqXHR, textStatus) {
+            //console.log("error"); 
+            app.appError("Connection lost.");
+        });
     },
     
     loadUserById: function(user_id){

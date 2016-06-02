@@ -94,3 +94,10 @@
 .user-logged .show-when-logged {
     display:block;
 }
+
+.oncall {
+    display:none;
+}
+.oncall-user .oncall {
+    display:block;
+}
