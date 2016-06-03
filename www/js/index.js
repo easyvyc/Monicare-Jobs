@@ -10,6 +10,7 @@ var app = {
     zoomsize: 1,
     current_date: {},
     open_pushbot_job_id: 0,
+    open_pushbot_oncall_id: 0,
     session_id: '',
     pushbot_token: '',
     
@@ -497,6 +498,8 @@ var app = {
                 if(typeof(PushbotsPlugin) != 'undefined'){
                     PushbotsPlugin.tag("oncall");
                 }
+            }else{
+                $('body').removeClass('oncall-user');
             }
 
             app.loadUserPageContent(json.user_data);
@@ -1192,6 +1195,22 @@ var app = {
         });
     },
     
+    load_oncall_job: function(wo_id, block){
+	$.ajax({
+            url: app.main_url + "app/jobseeker/on_call_job_load/" + wo_id + "/" + block + "/1",
+            beforeSend: function ( xhr ) {
+              app.startLoading();
+            }
+          }).done(function ( data ) {
+                  app.endLoading();
+                  $("#oncall_page .content").html(data);
+                  $("#oncall_page").show();
+          }).fail(function(jqXHR, textStatus){
+              app.endLoading();
+              alert(jqXHR.responseText);
+          });
+    },
+    
     loadUserById: function(user_id){
         // TODO: load user by id, patikrinti user agent visokie security ir t.t. 
         
@@ -1332,6 +1351,9 @@ var app = {
                     $obj.find('.job-content').show();
                     $(window).scrollTop(parseInt($obj.offset().top - $("#page_header").height() - 10));
                     $app.open_pushbot_job_id = 0;
+                }
+                if($app.open_pushbot_oncall_id){
+                    $app.load_oncall_job($app.open_pushbot_oncall_id, '');
                 }
                 
                 var USER_ID = localStorage.getItem('user_id');

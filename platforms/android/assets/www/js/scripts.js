@@ -62,6 +62,9 @@ function myMsgClickHandler(pusbot_data){
     if(pusbot_data.job_id){
         app.open_pushbot_job_id = pusbot_data.job_id;
     }
+    if(pusbot_data.oncall_id){
+        app.open_pushbot_oncall_id = pusbot_data.oncall_id;
+    }
 }
 
 function updateOrientation(){
