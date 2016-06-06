@@ -427,6 +427,7 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "cordova-plugin-whitelist": "1.2.2",
     "android.support.v4": "21.0.1",
     "com.pushbots.push": "1.2.7",
     "cordova-plugin-device": "1.1.2-dev",
@@ -437,7 +438,6 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.2.1-dev",
     "cordova-plugin-media-capture": "1.2.1-dev",
     "cordova-plugin-network-information": "1.2.1-dev",
-    "cordova-plugin-whitelist": "1.2.2",
     "org.apache.cordova.camera": "0.3.6"
 };
 // BOTTOM OF METADATA

@@ -17,12 +17,19 @@
 #experience input[type=text], #experience input[type=email], #experience input[type=tel], #experience input[type=number] {
     width:180px;
 }
-#experience input[type=text], #experience input[type=email], #experience input[type=tel], #experience input[type=number], #experience select {
+#experience input[type=text], #experience input[type=email], #experience input[type=tel], #experience input[type=number], #experience select, #experience textarea {
     font-size: 15px;
     padding: 7px;
 }
+#experience textarea {
+    width:300px;
+    height:50px;
+    -webkit-appearance: none;
+    border: 2px inset;
+}
 #experience select {
     min-width:80px;
+    max-width:100%;
 }
 
 #experience .remove-position-link {
@@ -30,4 +37,23 @@
     position:absolute;
     top:10px;
     right:10px;
+}
+
+#experience .sw180 {
+    width:195px !important;
+}
+#experience .phone {
+    width:120px !important;
+}
+#experience .cell_type {
+    width:15px !important;
+}
+#experience .end_reason {
+    width:315px;
+}
+#experience .child_age {
+    width:60px;
+}
+#experience .child_gender {
+    width:40px;
 }

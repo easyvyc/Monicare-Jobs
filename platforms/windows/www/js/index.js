@@ -10,6 +10,7 @@ var app = {
     zoomsize: 1,
     current_date: {},
     open_pushbot_job_id: 0,
+    open_pushbot_oncall_id: 0,
     session_id: '',
     pushbot_token: '',
     
@@ -177,7 +178,8 @@ var app = {
             }).done(function() {
                         
                 app.endLoading();
-                        
+                
+                $('body').removeClass('oncall-user');
                 $('body').removeClass('user-logged');
                 $('body').addClass('not-logged');
 
@@ -490,6 +492,15 @@ var app = {
 
             $('body').removeClass('not-logged');
             $('body').addClass('user-logged');
+            
+            if(json.user_data.is_oncall){
+                $('body').addClass('oncall-user');
+                if(typeof(PushbotsPlugin) != 'undefined'){
+                    PushbotsPlugin.tag("oncall");
+                }
+            }else{
+                $('body').removeClass('oncall-user');
+            }
 
             app.loadUserPageContent(json.user_data);
 
@@ -527,6 +538,8 @@ var app = {
             app.load_self_schedule();
         }else if(pg == '#user'){
             app.load_page_user();
+        }else if(pg == '#oncall'){
+            app.load_page_oncall();
         }else if(pg == '#exit'){
             navigator.app.exitApp();
         }else{
@@ -603,8 +616,42 @@ var app = {
         
         job_type = data.job_type;
         
+        data.childrens = "";
+        
+        if(job_type == "childcare"){
+            ch_html = "";
+            if(typeof(data.childcare_age)!='undefined' && data.childcare_age.length){
+                for(i=0; i<data.childcare_age.length; i++){
+                    ch_data = {age: data.childcare_age[i], gender: data.childcare_gender[i], index:i};
+                    ch_html += $("#experience-childcare-job-item-childrens").render(ch_data);
+                }
+            }else{
+                ch_data = {age: "", gender: "", index:0};
+                ch_html += $("#experience-childcare-job-item-childrens").render(ch_data);                
+            }
+            data.childrens = ch_html;
+        }
+        
         html = $("#experience-" + job_type + "-job-item").render(data);
         $('#experience-jobs-content').html(html);
+        
+        $('#experience-jobs-content .add-child-link').on('click', function(){
+            var cloned = $('div.child_row:first', $(this).parents(".form-section")).clone();
+            $('div.child_row:last', $(this).parents(".form-section")).after(cloned);
+            $(':input', cloned).val('').removeAttr('selected');
+            $('.child_info', cloned).append('<button class="remove-child-link btn red_btn" title="Remove" style="text-decoration:none"><i class="icon icon-minus"></i></button>');
+            $('.remove-child-link', cloned).on('click', function(){
+                section = $(this).parents('.form-section');
+                $(this).parents('.child_row').remove();
+                return false;
+            });
+            return false;
+        });
+        $('#experience-jobs-content .remove-child-link').on('click', function(){
+            section = $(this).parents('.form-section');
+            $(this).parents('.child_row').remove();
+            return false;
+        });
         
         var year_options = "";
         for(year = app.current_date.y; year >= 1960; year--){
@@ -643,6 +690,15 @@ var app = {
             $name = $(this).attr('name');
             $(this).val(data[$name]);
         });
+        
+        if(job_type == "childcare" && typeof(data.childcare_age)!='undefined' && data.childcare_age.length > 0){
+            $('#experience-jobs-content .child_row').each(function(){
+                $index = $(this).attr('data-index');
+                $('select.child_age', $(this)).val(data.childcare_age[$index]);
+                $('select.child_gender', $(this)).val(data.childcare_gender[$index]);
+            });
+        }
+        
     },
     
     load_experience: function(){
@@ -752,10 +808,14 @@ var app = {
                             html = $("#self-schedule-manage-assistant").render(json);
                             $("#self-schedule-form .manage-assistant").html(html);
 
+                            var first_day_to_select = null;
                             for(var i=0; i < json.days_to_select.length; i++){
                                 if(json.days_to_select[i].hours_easy.length == 0 || json.days_to_select[i].not_working_day == 1){
                                     date_eliminate[date_eliminate.length] = json.days_to_select[i].date;
                                 }else{
+                                    if(first_day_to_select == null){
+                                        first_day_to_select = json.days_to_select[i].date;
+                                    }
                                     day_to_select[json.days_to_select[i].date] = json.days_to_select[i];
                                 }
                             }
@@ -766,6 +826,7 @@ var app = {
                                 maxDate: +14,
                                 firstDay: 1,
                                 dateFormat: "yy-mm-dd",
+                                defaultDate: (first_day_to_select == null ? +1 : first_day_to_select),
                                 beforeShowDay: function(date){
                                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                                     return [$.inArray(string, date_eliminate) == -1];
@@ -1114,6 +1175,42 @@ var app = {
         }
     },
     
+    load_page_oncall: function(){
+        $.ajax({
+            url: app.main_url + "app/jobseeker/on_call_jobs_mobileapp",
+            cache: false,
+            dataType:"html",
+            beforeSend:function(){
+                app.startLoading();
+            },
+            success: function(html){
+                $("#oncall_page .content").html(html);
+                app.endLoading();
+                $("#oncall_page").show("slide", { direction: "left" }, 1000);
+                $('#top_navigation ul').hide();
+            }
+        }).fail(function(jqXHR, textStatus) {
+            //console.log("error"); 
+            app.appError("Connection lost.");
+        });
+    },
+    
+    load_oncall_job: function(wo_id, block){
+	$.ajax({
+            url: app.main_url + "app/jobseeker/on_call_job_load/" + wo_id + "/" + block + "/1",
+            beforeSend: function ( xhr ) {
+              app.startLoading();
+            }
+          }).done(function ( data ) {
+                  app.endLoading();
+                  $("#oncall_page .content").html(data);
+                  $("#oncall_page").show();
+          }).fail(function(jqXHR, textStatus){
+              app.endLoading();
+              alert(jqXHR.responseText);
+          });
+    },
+    
     loadUserById: function(user_id){
         // TODO: load user by id, patikrinti user agent visokie security ir t.t. 
         
@@ -1254,6 +1351,9 @@ var app = {
                     $obj.find('.job-content').show();
                     $(window).scrollTop(parseInt($obj.offset().top - $("#page_header").height() - 10));
                     $app.open_pushbot_job_id = 0;
+                }
+                if($app.open_pushbot_oncall_id){
+                    $app.load_oncall_job($app.open_pushbot_oncall_id, '');
                 }
                 
                 var USER_ID = localStorage.getItem('user_id');
