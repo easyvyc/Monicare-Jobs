@@ -49,6 +49,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
         
+        
     </head>
     <body class="not-logged">
 
@@ -56,16 +57,18 @@
 
             <nav id="top_navigation">
                 <a id="home" class="m_btn"><i class="icon-reorder"></i> MENU</a>
-                <ul>
-                    <li><a href="#all" class="nav_link"><i class="icon-book icon-2x"></i><span>All Jobs</span></a></li>
-                    <li class="oncall"><a href="#oncall" class="nav_link"><i class="icon-list-ul icon-2x"></i><span>On-Call Jobs</span></a></li>
-                    <li><a href="#map" class="nav_link"><i class="icon-map-marker icon-2x"></i><span>Jobs on Map</span></a></li>
-                    <li class="interested"><a href="#interested" class="nav_link"><i class="icon-ok-sign icon-2x"></i><span>I'm Interested</span></a></li>
-                    <li class="interested"><a href="#interviews" class="nav_link"><i class="icon-calendar icon-2x"></i><span>My Interviews</span></a></li>
-                    <li><a href="#contacts" class="nav_link"><i class="icon-phone icon-2x"></i><span>Contact us</span></a></li>
-                    <li><a href="#exit" class="nav_link"><i class="icon-off icon-2x"></i><span>Exit</span></a></li>
-                    <!--li><a href="#settings" class="nav_link"><i class="icon-wrench icon-2x"></i><span>Settings</span></a></li-->
-                </ul>
+                <div id="home-nav">
+                    <ul>
+                        <li><a href="#categories" class="nav_link"><i class="icon-book icon-2x"></i><span>All Jobs</span></a></li>
+                        <li class="oncall"><a href="#oncall" class="nav_link"><i class="icon-list-ul icon-2x"></i><span>On-Call Jobs</span></a></li>
+                        <li><a href="#map" class="nav_link"><i class="icon-map-marker icon-2x"></i><span>Jobs on Map</span></a></li>
+                        <li class="interested"><a href="#interested" class="nav_link"><i class="icon-ok-sign icon-2x"></i><span>I'm Interested</span></a></li>
+                        <li class="interested"><a href="#interviews" class="nav_link"><i class="icon-calendar icon-2x"></i><span>My Interviews</span></a></li>
+                        <li><a href="#contacts" class="nav_link"><i class="icon-phone icon-2x"></i><span>Contact us</span></a></li>
+                        <li><a href="#exit" class="nav_link"><i class="icon-off icon-2x"></i><span>Exit</span></a></li>
+                        <!--li><a href="#settings" class="nav_link"><i class="icon-wrench icon-2x"></i><span>Settings</span></a></li-->
+                    </ul>
+                </div>
             </nav>
 
             <div class="logo">
@@ -288,6 +291,15 @@
 
         </div>
         
+        <div class="app" data-role="page" id="categories">
+            
+            <div data-role="content"> 
+            
+                <div id="categories-jobs-content"></div>
+
+            </div>
+
+        </div>
 
         
         <div class="app" data-role="page" id="map">
@@ -1143,6 +1155,7 @@
                     <i class="icon-ok-sign icon-2x checked"></i>
                 </h4>
                 <div class="job-content">
+                
                     <div class="text">{{:text}}</div>
                     <div class="btns">
 
@@ -1191,6 +1204,7 @@
         <script id="domestic-map-job-tpl" type="text/x-jsrender">
         <div class="domestic-job-item {{if review}}interested-job{{/if}}" id="job_id_{{:id}}">
                 <div class="job-content-map">
+                
                     <div class="text">{{:text}}</div>
                     <div class="btns">
         
@@ -1301,6 +1315,19 @@
         </div>
         </script>
         
+        <script id="category-job-tpl" type="text/x-jsrender">
+            
+            <div class="job-category">
+                <div class="link" onclick="javascript: app.loadPage('#all', 'right', '{{:key}}');">
+
+                    <span class="title">{{:title}}</span>
+                    <span class="count">{{:count}}</span>
+            
+
+                </div>
+            </div>
+            
+        </script>
         
     </body>
 </html>
