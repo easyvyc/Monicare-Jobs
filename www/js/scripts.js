@@ -1,4 +1,3 @@
-
 function onGetPictureSuccess(mediaFiles) {
     app.mediaFile = mediaFiles[0];
     if((app.mediaFile.size / (1024 * 1024)) < 100){
@@ -60,9 +59,11 @@ function recommend_dialog(job_id, anonymous){
 
 function myMsgClickHandler(pusbot_data){
     if(pusbot_data.job_id){
+        app.pushbot_payload = true;
         app.open_pushbot_job_id = pusbot_data.job_id;
     }
     if(pusbot_data.oncall_id){
+        app.pushbot_payload = true;
         app.open_pushbot_oncall_id = pusbot_data.oncall_id;
     }
 }
