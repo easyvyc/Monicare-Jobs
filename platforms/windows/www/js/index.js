@@ -13,6 +13,7 @@ var app = {
     open_pushbot_oncall_id: 0,
     session_id: '',
     pushbot_token: '',
+    pushbot_payload: false,
     all_jobs_items: [],
     all_jobs_categories: [],
     
@@ -42,7 +43,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-
+        
         //Pushbots.sharedInstance().debug(true);
         window.addEventListener("orientationchange", updateOrientation, true);
 
@@ -78,6 +79,7 @@ var app = {
             }
         }
         
+        
         // Mock device.platform property if not available
         if (!window.device) {
             window.device = { platform: 'Browser' };
@@ -96,33 +98,43 @@ var app = {
             //$(this).closest('label').removeClass('err');
 	});
         
+        window.onpopstate = function(event) {
+          
+            var curr_hash = document.location.hash;
+
+            // positions reik persokti
+            if(curr_hash == '#add_position' || curr_hash == '#positions'){
+                curr_hash = '#user';
+            }
+
+            if(curr_hash == '' && !app.back_to_exit){
+                curr_hash = '#categories';
+                app.back_to_exit = true;
+            }
+
+            if(curr_hash != ''){
+
+                href_arr = curr_hash.split("---");
+
+                if(href_arr.length > 1){
+                    app.loadPage(href_arr[0], 'left', href_arr[1]);
+                }else{
+                    app.loadPage(curr_hash, 'left');
+                }            
+
+            }else{
+                navigator.app.exitApp();
+            }          
+          
+        };        
+        
         document.addEventListener("backbutton", function(e){
             
             if(app.dialog_opened){
                 app.close_dialog();
             }else{
-                
-                navigator.app.backHistory();
-                var curr_hash = location.hash;
-                
-                // positions reik persokti
-                if(curr_hash == '#add_position' || curr_hash == '#positions'){
-                    curr_hash = '#user';
-                }
-                
-                if(curr_hash == '' && !app.back_to_exit){
-                    curr_hash = '#categories';
-                    app.back_to_exit = true;
-                }
-
-                if(curr_hash != ''){
-                    app.loadPage(curr_hash, 'left'); 
-                }else{
-                    navigator.app.exitApp();
-                }
-                
+                window.history.back();
             }
-
                
         }, false);        
         
@@ -148,15 +160,7 @@ var app = {
         //$('#register .phone').val();
         
         $('a.nav_link').click(function(){
-            
-            var title = $(this).attr('title');
-            var pg = $(this).attr('href');
-            var dir = $(this).attr('data-dir');
-            
-            app.loadPage(pg, dir);
-            
-            window.history.pushState('', '', pg);
-            
+            app.create_nav_link($(this));
             return false;
         });
         
@@ -1355,6 +1359,15 @@ var app = {
                 
                 app.renderCategories(json.categories);
                 
+                if(app.open_pushbot_job_id){
+                    app.load_one_job(app.open_pushbot_job_id);
+                    app.open_pushbot_job_id = 0;
+                }
+                if(app.open_pushbot_oncall_id){
+                    app.load_oncall_job(app.open_pushbot_oncall_id, '');
+                    app.open_pushbot_oncall_id = 0;
+                }
+                
             }catch(err) {
                 app.appError("Error: " + err.message);
             }
@@ -1367,38 +1380,23 @@ var app = {
     
     start: function(){
 
-        load_start_page = true;
-         
-        if(app.open_pushbot_job_id){
-            app.load_one_job(app.open_pushbot_job_id);
-            app.open_pushbot_job_id = 0;
-            load_start_page = false;
-        }
-        if(app.open_pushbot_oncall_id){
-            app.load_oncall_job(app.open_pushbot_oncall_id, '');
-            load_start_page = false;
-        }
-
         var USER_ID = localStorage.getItem('user_id');
-
         if(USER_ID){
             if(app.loadUserById(USER_ID)){
                 $('body').removeClass('not-logged');
                 $('body').addClass('user-logged');
-            }else{
-                app.refreshJobs();
             }
         }else{
             app.refreshJobs();
         }
-        
-        if(load_start_page){
+
+        if(!app.pushbot_payload){
             $('#categories').show();
             $('#loading').hide();
         }
         
     },
-    
+
     get_job: function(job_id){
         var job_data = false;
         $.each(this.all_jobs_items, function(i, val){
@@ -1407,6 +1405,25 @@ var app = {
             } 
         });
         return job_data;
+    },
+    
+    create_nav_link: function($obj){
+        
+        var title = $obj.attr('title');
+        var pg = $obj.attr('href');
+        var dir = $obj.attr('data-dir');
+
+        href_arr = pg.split("---");
+
+        if(href_arr.length > 1){
+            app.loadPage(href_arr[0], dir, href_arr[1]);
+        }else{
+            app.loadPage(pg, dir);
+        }            
+
+        window.history.pushState('', '', pg);
+        app.back_to_exit = false;
+        
     },
     
     renderCategories: function(items){
@@ -1418,6 +1435,11 @@ var app = {
             arr[arr.length] = items[i].id;
         }
         $('#categories-jobs-content').html(html);
+        
+        $('a.nav_link', $('#categories-jobs-content')).click(function(){
+            app.create_nav_link($(this));
+            return false;
+        });        
         
     },
     
@@ -1433,6 +1455,16 @@ var app = {
                 }
             }
         }
+        var category_title = '';
+        for(i=0; i < app.all_jobs_categories.length; i++){
+            if(app.all_jobs_categories[i].key == category){
+                category_title = app.all_jobs_categories[i].title;
+            }
+        }
+        if(category_title){
+            $('#all h1.title').html(category_title + " Jobs");
+        }
+        
         $('#domestic-jobs-content').html(html);
         
         /*

@@ -1455,6 +1455,16 @@ var app = {
                 }
             }
         }
+        var category_title = '';
+        for(i=0; i < app.all_jobs_categories.length; i++){
+            if(app.all_jobs_categories[i].key == category){
+                category_title = app.all_jobs_categories[i].title;
+            }
+        }
+        if(category_title){
+            $('#all h1.title').html(category_title + " Jobs");
+        }
+        
         $('#domestic-jobs-content').html(html);
         
         /*
