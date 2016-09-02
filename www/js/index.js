@@ -1317,6 +1317,8 @@ var app = {
         
         $("#job_id_" + job_id).addClass('interested-job');
         
+        app.refreshJobs();
+        
         app.close_dialog();
         app.endLoading();        
     },

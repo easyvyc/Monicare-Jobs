@@ -1141,18 +1141,29 @@
           </div>
           <div data-role="main" class="ui-content">
           </div>
-        </div>        
+        </div>
         
         
         <div class="overlay"></div>
         
         <script id="domestic-job-tpl" type="text/x-jsrender">
-            <div class="domestic-job-item {{if review}}interested-job{{/if}}" id="job_id_{{:id}}">
+            <div class="domestic-job-item {{if review}}interested-job{{/if}} {{if new}}new-item{{/if}}" id="job_id_{{:id}}">
                 <h4>
-                    <i class="icon-chevron-down slide"></i> 
-                    <i class="icon-chevron-up slide"></i> 
+                
+                    <span class="chevron">
+                        <i class="icon-chevron-down slide"></i> 
+                        <i class="icon-chevron-up slide"></i> 
+                    </span>
+                    
+                    <span class="heart">
+                        <i class="icon-heart slide"></i> 
+                    </span>
+            
                     <span>{{:heading}}</span>
                     <i class="icon-ok-sign icon-2x checked"></i>
+                    
+                    <span class="new-msg">New</span>
+            
                 </h4>
                 <div class="job-content">
                 
@@ -1319,10 +1330,18 @@
             
             <div class="job-category">
                 <a class="link nav_link" href="#all---{{:key}}">
-
+                
+                    {{if count_new}}
+                    <span class="new">{{:count_new}}</span>
+                    {{/if}}
+                            
                     <span class="title">{{:title}}</span>
                     <span class="count">{{:count}}</span>
             
+                    {{if count_interested}}
+                    <span class="interested">{{:count_interested}} <i class="icon-heart"></i></span>
+                    {{/if}}
+                            
                 </a>
             </div>
             

@@ -219,8 +219,34 @@ h1 {
     min-height: 15px;
     padding: 5px;
     cursor:pointer;
+    position:relative;
 }
-.domestic-job-item .icon-chevron-up {
+.domestic-job-item .new-msg {
+    display:none;
+}
+.domestic-job-item.new-item .new-msg {
+    display:block;
+    position:absolute;
+    top:-3px;
+    right:-3px;
+    padding:2px 7px;
+    font-size:11px;
+    color:#FFF;
+    background:#ED1C24;
+    border-radius:3px;
+}
+.domestic-job-item.new-item .new-msg:after {
+    position:absolute;
+    top:25px;
+    right:30px;
+    
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #ED1C24 transparent transparent; 
+}
+.domestic-job-item .icon-chevron-up, .domestic-job-item .heart {
     display:none;
 }
 .domestic-job-item .text {
@@ -250,12 +276,21 @@ h1 {
 .domestic-job-item .interested-btn {
     display:block;
 }
-body.user-logged .domestic-job-item.interested-job .interested-btn {
+body.user-logged .domestic-job-item.interested-job .heart {
+    display:inline;
+}
+body.user-logged .domestic-job-item.interested-job .chevron {
     display:none;
 }
+
 .domestic-job-item .review-btn {
     display:none;
 }
+
+body.user-logged .domestic-job-item.interested-job .interested-btn {
+    display:none;
+}
+
 body.user-logged .domestic-job-item.interested-job .review-btn {
     display:block;
 }
@@ -308,6 +343,30 @@ body.user-logged .domestic-job-item.interested-job h4 .checked {
     height:100px;
     border-radius:5px;
     padding:15px;
+    position:relative;
+}
+#categories-jobs-content .job-category .link .new {
+    position:absolute;
+    font-size:14px;
+    font-weight:bold;
+    color:#FFF;
+    text-align:center;
+    width:16px;
+    height:16px;
+    padding:2px;
+    background:#ED1C24;
+    border-radius:10px;
+    text-shadow:none;
+    top:-3px;
+    right:-3px;
+}
+#categories-jobs-content .job-category .link .interested {
+    position:absolute;
+    font-size:12px;
+    font-weight:bold;
+    text-shadow:none;
+    bottom:10px;
+    left:10px;    
 }
 #categories-jobs-content .job-category .title {
     font-size:22px;
